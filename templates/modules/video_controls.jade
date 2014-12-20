@@ -1,7 +1,10 @@
 ul#controls
   li
-    input(type='button' value="<<" id="previous-track")
+    a(href="#" id="previous-track")
+      i.fa.fa-backward
   li
-    input(type='button' value="||" id="play-track" data-play-action="stop")
+    a(href="#")
+      i.fa.fa-pause(id="play-track" data-play-action="stop")
   li
-    input(type='button' value=">>" id="next-track")
+    a(href="#" id="next-track")
+      i.fa.fa-forward

@@ -8,14 +8,8 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 var player;
-var playlist = document.getElementById('playlist');
-var songs = document.querySelectorAll('#playlist li a');
-var firstSong = songs[0];
-firstSong.setAttribute('playing', true);
-firstSong.setAttribute('class', 'track-playing');
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
-    videoId: firstSong.getAttribute('data-youtube-id'),
     events: {
       'onReady': onPlayerReady,
       'onStateChange': onPlayerStateChange
@@ -25,7 +19,6 @@ function onYouTubeIframeAPIReady() {
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  event.target.playVideo();
 }
 
 // 5. The API calls this function when the player's state changes.
@@ -37,7 +30,30 @@ function onPlayerStateChange(event) {
   }
 }
 
+var songs = document.querySelectorAll('#playlist li a');
+var playlist = document.getElementById('playlist');
+var search = document.getElementById('search');
+
+search.addEventListener('keypress', function(e){
+  if (e.keyCode === 13){
+    var videoContainer = document.getElementById('video-container');
+    removeClass(videoContainer, 'hidden');
+    playFirst();
+  }
+});
+
+var next = document.getElementById('next-track');
+var previous = document.getElementById('previous-track');
+var play = document.getElementById('play-track');
+next.addEventListener('click', playNext);
+previous.addEventListener('click', playPrevious);
+play.addEventListener('click', function(){
+  playVideo(play.getAttribute('data-play-action'));
+});
+
 var changeVideo = function(song){
+  removeClass(play, 'fa-play');
+  addClass(play, 'fa-pause');
   var track = Number(playlist.getAttribute('data-track-playing'));
   removeClass(songs[track], 'track-playing');
   var selectedTrack = Number(song.getAttribute('data-track-index'));
@@ -52,18 +68,18 @@ var changeVideo = function(song){
   });
 });
 
-var next = document.getElementById('next-track');
-var previous = document.getElementById('previous-track');
-var play = document.getElementById('play-track');
-next.addEventListener('click', playNext);
-previous.addEventListener('click', playPrevious);
-play.addEventListener('click', function(){
-  playVideo(play.getAttribute('data-play-action'));
-});
-
+function playFirst(){
+  var firstSong = songs[0];
+  firstSong.setAttribute('playing', true);
+  firstSong.setAttribute('class', 'track-playing');
+  player.loadVideoById(firstSong.getAttribute('data-youtube-id'));
+  var playtube = document.getElementById('playtube');
+  removeClass(playtube, 'hidden');
+}
 
 function playNext(){
-  play.setAttribute('value', '||');
+  removeClass(play, 'fa-play');
+  addClass(play, 'fa-pause');
   var track = Number(playlist.getAttribute('data-track-playing'));
   if ((track + 1) < songs.length) {
     removeClass(songs[track], 'track-playing');
@@ -74,7 +90,8 @@ function playNext(){
 }
 
 function playPrevious(){
-  play.setAttribute('value', '||');
+  removeClass(play, 'fa-play');
+  addClass(play, 'fa-pause');
   var track = Number(playlist.getAttribute('data-track-playing'));
   if ((track - 1) >= 0) {
     removeClass(songs[track], 'track-playing');
@@ -88,12 +105,14 @@ function playVideo(action){
   if (action === 'stop') {
     player.stopVideo();
     play.setAttribute('data-play-action', 'play');
-    play.setAttribute('value', '<>');
+    addClass(play, 'fa-play');
+    removeClass(play, 'fa-pause');
   }
   else if (action === 'play'){
     player.playVideo();
     play.setAttribute('data-play-action', 'stop');
-    play.setAttribute('value', '||');
+    addClass(play, 'fa-pause');
+    removeClass(play, 'fa-play');
   }
 }
 
@@ -104,4 +123,11 @@ function removeClass(el, className){
     el.className = el.className
       .replace(new RegExp('(^|\\b)' +
                className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+}
+
+function addClass(el, className) {
+  if (el.classList)
+  el.classList.add(className);
+else
+  el.className += ' ' + className;
 }

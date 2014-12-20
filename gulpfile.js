@@ -70,6 +70,7 @@ gulp.task('vendor_scripts', function(){
 gulp.task('vendor_styles', function(){
   return gulp.src(dirVendor.root + '**/*.css')
     .pipe(concat('vendor.all.css'))
+    .pipe(gulp.dest(dirDest.styles))
     .pipe(rename('vendor.all.min.css'))
     .pipe(minifycss())
     .pipe(gulp.dest(dirDest.styles));
@@ -100,5 +101,5 @@ gulp.task('watch', function() {
 });
 
 // Default Task
-gulp.task('default', ['lint', 'sass', 'scripts', 'vendor_scripts', 'styles',
-          'templates', 'watch']);
+gulp.task('default', ['lint', 'sass', 'scripts', 'vendor_scripts',
+          'vendor_styles', 'styles', 'templates', 'watch']);
