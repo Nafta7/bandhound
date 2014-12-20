@@ -1,0 +1,36 @@
+$tablet-width: 780px
+$desktop-width: 1000px
+
+html
+  font-size: 100%
+
+@media(min-width: $tablet-width)
+  font-size: 62%
+
+*, *:before, *:after
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
+
+h1
+  font-size: 1.6em
+
+input[type='text']
+  width: 100%
+  font-size: 1.2em
+  padding: 10px
+
+ul
+  list-style: none
+  li
+    display: inline
+a
+  color: black
+  border: 1px solid transparent
+  padding: 10px 10px
+  display: block
+  text-decoration: none
+  &:hover
+    background: white
+    color: black
+    border: 1px solid black

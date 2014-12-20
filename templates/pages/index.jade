@@ -1,5 +1,10 @@
 html
   head
-    title Playtube.fm
+    include ../base/head.jade
   body
-    h1 Hello world
+    .container
+      include ../modules/header.jade
+      include ../modules/search.jade
+      include ../components/playtube.jade
+
+    include ../base/bottom.jade
