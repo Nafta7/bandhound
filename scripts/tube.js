@@ -36,9 +36,12 @@ var search = document.getElementById('search');
 
 search.addEventListener('keypress', function(e){
   if (e.keyCode === 13){
+    FM.fetchSimilarArtists({artist: search.value});
     var videoContainer = document.getElementById('video-container');
     removeClass(videoContainer, 'hidden');
-    playFirst();
+    var playtube = document.getElementById('playtube');
+    removeClass(playtube, 'hidden');
+    // playFirst();
   }
 });
 
@@ -52,6 +55,7 @@ play.addEventListener('click', function(){
 });
 
 var changeVideo = function(song){
+
   removeClass(play, 'fa-play');
   addClass(play, 'fa-pause');
   var track = Number(playlist.getAttribute('data-track-playing'));
@@ -78,6 +82,9 @@ function playFirst(){
 }
 
 function playNext(){
+  playlist = document.getElementById('playlist');
+  var songs = document.querySelectorAll('#playlist li a');
+  console.log(playlist);
   removeClass(play, 'fa-play');
   addClass(play, 'fa-pause');
   var track = Number(playlist.getAttribute('data-track-playing'));
@@ -90,6 +97,7 @@ function playNext(){
 }
 
 function playPrevious(){
+  playlist = document.getElementById('playlist');
   removeClass(play, 'fa-play');
   addClass(play, 'fa-pause');
   var track = Number(playlist.getAttribute('data-track-playing'));
@@ -102,6 +110,7 @@ function playPrevious(){
 }
 
 function playVideo(action){
+  playlist = document.getElementById('playlist');
   if (action === 'stop') {
     player.stopVideo();
     play.setAttribute('data-play-action', 'play');
