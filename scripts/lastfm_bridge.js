@@ -5,7 +5,6 @@ var FM = (function(){
   }),
   similarArtists = function(options){
     options.limit = options.limit || 10;
-    console.log(options.limit);
     fm.artist.getSimilar({artist: options.artist, limit: options.limit},
     {success: function(data){
       data.similarartists.artist.forEach(function(artist){

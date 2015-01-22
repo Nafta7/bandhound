@@ -101,5 +101,5 @@ gulp.task('watch', function() {
 });
 
 // Default Task
-gulp.task('default', ['lint', 'sass', 'scripts', 'vendor_scripts',
+gulp.task('default', ['lint', 'sass', 'scripts',
           'vendor_styles', 'styles', 'templates', 'watch']);

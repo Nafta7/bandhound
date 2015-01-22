@@ -1,142 +1,151 @@
-// 2. This code loads the IFrame Player API code asynchronously.
-var tag = document.createElement('script');
+var TubeView = function(){
+  var $playlist, $songs, $play, $search, player;
 
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  var youtube = function(){
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    window.onYouTubeIframeAPIReady = loadVideo;
+  },
 
-// 3. This function creates an <iframe> (and YouTube player)
-//    after the API code downloads.
-var player;
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
+  init = function(){
+    $playlist = $('#playlist');
+    $songs = $('#playlist li a');
+    $play = $('#play-track');
+    $search = $('#search');
+
+    youtube();
+
+    $search.on('keypress', function(e){
+      if (e.keyCode === 13){
+        $('#playlist').empty();
+        FM.fetchSimilarArtists({artist: $search.val()});
+        $('#video-container').removeClass('hidden');
+        $('#playtube').removeClass('hidden');
+      }
+    });
+
+    var $next = $('#next-track'),
+        $previous = $('#previous-track');
+
+    $next.on('click', playNext);
+    $previous.on('click', playPrevious);
+
+    $play.on('click', function(){
+      playVideo($play.attr('data-play-action'));
+    });
+
+    $('#toggle-player').on('click', function(e){
+      $(this).find('i').toggleClass('fa-chevron-up fa-chevron-down');
+      $('#player-fixed').slideToggle('slow');
+    });
+
+    $playlist.on('click', 'a', changeVideo);
+  },
+
+  loadVideo = function(){
+    player = new YT.Player('player', {
+      events: {
+        onReady: function(){},
+        onStateChange: function(e){
+            if( (e.target.getPlayerState()===0)){
+               playNext();
+            }
+        }
+      },
+
+    });
+  },
+
+  playNext = function(){
+    $play.removeClass('fa-play');
+    $play.addClass('fa-pause');
+    var track = Number($playlist.attr('data-track-playing'));
+
+    if ((track + 1) < $songs.length) {
+      $songs.eq(track).removeClass('track-playing');
+      $playlist.attr('data-track-playing', ++track);
+      $songs.eq(track).attr('class', 'track-playing');
+      player.loadVideoById($songs.eq(track).attr('data-youtube-id'));
     }
-  });
-}
+  },
 
-// 4. The API will call this function when the video player is ready.
-function onPlayerReady(event) {
-}
+  playPrevious = function(){
+    $play.removeClass('fa-play');
+    $play.addClass('fa-pause');
+    var track = Number($playlist.attr('data-track-playing'));
 
-// 5. The API calls this function when the player's state changes.
-//    The function indicates that when playing a video (state=1),
-//    the player should play for six seconds and then stop.
-function onPlayerStateChange(event) {
-  if (event.data == YT.PlayerState.ENDED) {
-    playNext();
-  }
-}
+    if (track -1 >= 0) {
+      $songs.eq(track).removeClass('track-playing');
+      $playlist.attr('data-track-playing', --track);
+      $songs.eq(track).attr('class', 'track-playing');
+      player.loadVideoById($songs.eq(track).attr('data-youtube-id'));
+    }
+  },
 
-var songs = document.querySelectorAll('#playlist li a');
-var playlist = document.getElementById('playlist');
-var search = document.getElementById('search');
+  playVideo = function (action){
 
-search.addEventListener('keypress', function(e){
-  if (e.keyCode === 13){
-    FM.fetchSimilarArtists({artist: search.value});
-    var videoContainer = document.getElementById('video-container');
-    removeClass(videoContainer, 'hidden');
-    var playtube = document.getElementById('playtube');
-    removeClass(playtube, 'hidden');
-    // playFirst();
-  }
+    if (action === 'stop') {
+      player.stopVideo();
+      $play.attr('data-play-action', 'play');
+      $play.addClass('fa-play');
+      $play.removeClass('fa-pause');
+    }
+    else if (action === 'play'){
+      player.playVideo();
+      $play.attr('data-play-action', 'stop');
+      $play.addClass('fa-pause');
+      $play.removeClass('fa-play');
+    }
+  },
+
+  changeVideo = function(event){
+    $songs = $('#playlist a');
+    var $song = $(this);
+    $play.removeClass('fa-play');
+    $play.addClass('fa-pause');
+
+    var track = Number($playlist.attr('data-track-playing'));
+    $songs.eq(track).removeClass('track-playing');
+    var selectedTrack = Number($song.attr('data-track-index'));
+    $songs.eq(selectedTrack).attr('class', 'track-playing');
+    $playlist.attr('data-track-playing', selectedTrack);
+    player.loadVideoById($song.attr('data-youtube-id'));
+  },
+
+  playFirst = function(){
+    var firstSong = $('#playlist a').first();
+    firstSong.attr('playing', true);
+    firstSong.attr('class', 'track-playing');
+    $playlist.attr('data-track-playing', '0');
+    player.loadVideoById(firstSong.attr('data-youtube-id'));
+    var $playtube = $('#playtube');
+    var $videoContainer = $('#video-container');
+    $videoContainer.removeClass('hidden');
+    $playtube.removeClass('hidden');
+  };
+
+  return {
+    init: init
+  };
+
+}();
+
+$(document).ready(function(){
+  TubeView.init();
 });
 
-var next = document.getElementById('next-track');
-var previous = document.getElementById('previous-track');
-var play = document.getElementById('play-track');
-next.addEventListener('click', playNext);
-previous.addEventListener('click', playPrevious);
-play.addEventListener('click', function(){
-  playVideo(play.getAttribute('data-play-action'));
-});
 
-var changeVideo = function(song){
+// // 4. The API will call this function when the video player is ready.
+// function onPlayerReady(event) {
+// }
 
-  removeClass(play, 'fa-play');
-  addClass(play, 'fa-pause');
-  var track = Number(playlist.getAttribute('data-track-playing'));
-  removeClass(songs[track], 'track-playing');
-  var selectedTrack = Number(song.getAttribute('data-track-index'));
-  songs[selectedTrack].setAttribute('class', 'track-playing');
-  playlist.setAttribute('data-track-playing', selectedTrack);
-  player.loadVideoById(song.getAttribute('data-youtube-id'));
-};
-
-[].forEach.call(songs, function(song){
-  song.addEventListener('click', function(){
-    changeVideo(song);
-  });
-});
-
-function playFirst(){
-  var firstSong = songs[0];
-  firstSong.setAttribute('playing', true);
-  firstSong.setAttribute('class', 'track-playing');
-  player.loadVideoById(firstSong.getAttribute('data-youtube-id'));
-  var playtube = document.getElementById('playtube');
-  removeClass(playtube, 'hidden');
-}
-
-function playNext(){
-  playlist = document.getElementById('playlist');
-  var songs = document.querySelectorAll('#playlist li a');
-  console.log(playlist);
-  removeClass(play, 'fa-play');
-  addClass(play, 'fa-pause');
-  var track = Number(playlist.getAttribute('data-track-playing'));
-  if ((track + 1) < songs.length) {
-    removeClass(songs[track], 'track-playing');
-    playlist.setAttribute('data-track-playing', ++track);
-    songs[track].setAttribute('class', 'track-playing');
-    player.loadVideoById(songs[track].getAttribute('data-youtube-id'));
-  }
-}
-
-function playPrevious(){
-  playlist = document.getElementById('playlist');
-  removeClass(play, 'fa-play');
-  addClass(play, 'fa-pause');
-  var track = Number(playlist.getAttribute('data-track-playing'));
-  if ((track - 1) >= 0) {
-    removeClass(songs[track], 'track-playing');
-    playlist.setAttribute('data-track-playing', --track);
-    songs[track].setAttribute('class', 'track-playing');
-    player.loadVideoById(songs[track].getAttribute('data-youtube-id'));
-  }
-}
-
-function playVideo(action){
-  playlist = document.getElementById('playlist');
-  if (action === 'stop') {
-    player.stopVideo();
-    play.setAttribute('data-play-action', 'play');
-    addClass(play, 'fa-play');
-    removeClass(play, 'fa-pause');
-  }
-  else if (action === 'play'){
-    player.playVideo();
-    play.setAttribute('data-play-action', 'stop');
-    addClass(play, 'fa-pause');
-    removeClass(play, 'fa-play');
-  }
-}
-
-function removeClass(el, className){
-  if (el.classList)
-    el.classList.remove(className);
-  else
-    el.className = el.className
-      .replace(new RegExp('(^|\\b)' +
-               className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-}
-
-function addClass(el, className) {
-  if (el.classList)
-  el.classList.add(className);
-else
-  el.className += ' ' + className;
-}
+// // 5. The API calls this function when the player's state changes.
+// //    The function indicates that when playing a video (state=1),
+// //    the player should play for six seconds and then stop.
+// function onPlayerStateChange(event) {
+//   if (event.data == YT.PlayerState.ENDED) {
+//     playNext();
+//   }
+// }
