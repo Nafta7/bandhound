@@ -22,6 +22,7 @@ var FM = (function(){
       data.toptracks.track.forEach(function(track){
         YTB.pullSongs({artist: track.artist.name, track: track.name});
       });
+      $('#loader').hide();
     }, error: function(code, message){
       console.log(message);
     }});

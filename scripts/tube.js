@@ -19,6 +19,7 @@ var TubeView = function(){
 
     $search.on('keypress', function(e){
       if (e.keyCode === 13){
+        $('#loader').show();
         $('#playlist').empty();
         FM.fetchSimilarArtists({artist: $search.val()});
         $('#video-container').removeClass('hidden');
