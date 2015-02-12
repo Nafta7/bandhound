@@ -10,15 +10,18 @@ var TubeView = function(){
   },
 
   init = function(){
+
+    $search = $('#search');
+    $play = $('#play-track');
     $playlist = $('#playlist');
     $songs = $('#playlist li a');
-    $play = $('#play-track');
-    $search = $('#search');
-
     youtube();
 
     $search.on('keypress', function(e){
       if (e.keyCode === 13){
+
+
+
         $('#loader').show();
         $('#playlist').empty();
         FM.fetchSimilarArtists({artist: $search.val()});
