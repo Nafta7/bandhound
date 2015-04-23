@@ -7,7 +7,8 @@ var FM = (function(){
 
   similarArtists = function(options){
     options.limit = options.limit || 10;
-    fm.artist.getSimilar({artist: options.artist, limit: options.limit},
+    fm.artist.getSimilar({artist: options.artist, limit: options.limit,
+      page: options.page},
     {success: function(data){
       ytb = new YTB();
       data.similarartists.artist.forEach(function(artist){

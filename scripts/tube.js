@@ -1,5 +1,6 @@
 var TubeView = function(){
-  var $playlist, $songs, $play, $search, player;
+  var $playlist, $songs, $play, $search, player,
+      currentPage, artistName;
 
   var youtube = function(){
     var tag = document.createElement('script');
@@ -20,11 +21,12 @@ var TubeView = function(){
     $search.on('keypress', function(e){
       if (e.keyCode === 13){
 
-
+        currentPage = 1;
 
         $('#loader').show();
         $('#playlist').empty();
-        FM.fetchSimilarArtists({artist: $search.val()});
+        artistName = $search.val();
+        FM.fetchSimilarArtists({artist: artistName, page: currentPage});
         $('#video-container').removeClass('hidden');
         $('#playtube').removeClass('hidden');
       }
@@ -46,6 +48,11 @@ var TubeView = function(){
     });
 
     $playlist.on('click', 'a', changeVideo);
+  },
+
+  loadMore = function(){
+    currentPage++;
+    FM.fetchSimilarArtists({artist: artistName, page: currentPage});
   },
 
   loadVideo = function(){
