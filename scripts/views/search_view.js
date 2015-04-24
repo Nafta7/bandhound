@@ -1,15 +1,16 @@
-var SearchView = Backbone.View.extend({
-  initialize: function(){
-    self = this;
-  },
+var $ = require('jquery'),
+    Backbone = require('backbone'),
+    ArtistFinder = require('../models/artist_finder');
+Backbone.$ = window.$;
 
+module.exports = Backbone.View.extend({
   events: {
     "keyup #search-artist": "keyPressHandler"
   },
 
   keyPressHandler: function(e){
     if (e.keyCode == 13){
-      self.searchSimilarArtists(self.$el.children('#search-artist').val());
+      this.searchSimilarArtists(this.$el.children('#search-artist').val());
     }
   },
 
@@ -17,8 +18,4 @@ var SearchView = Backbone.View.extend({
     var artistFinder = new ArtistFinder(artist);
     artistFinder.findSimilar({artist: artist});
   }
-});
-
-$(document).ready(function(){
-  var searchView = new SearchView({el: $('#search')});
 });

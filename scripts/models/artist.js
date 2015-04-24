@@ -1,4 +1,7 @@
-var Artist = Backbone.Model.extend({
+var $ = require('jquery'),
+    Backbone = require('backbone');
+
+module.exports = Backbone.Model.extend({
   topTracks: function(options){
     var fm = this.get('fm');
     var trackFetcher = this.get('trackFetcher');
@@ -8,7 +11,7 @@ var Artist = Backbone.Model.extend({
       data.toptracks.track.forEach(function(track){
         trackFetcher.fetchTrack({artist: track.artist.name, track: track.name});
       });
-      $('#loader').hide();
+      // $('#loader').hide();
     }, error: function(code, message){
       console.log(message);
     }});

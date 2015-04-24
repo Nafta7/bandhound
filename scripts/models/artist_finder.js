@@ -1,4 +1,9 @@
-var ArtistFinder = Backbone.Model.extend({
+var $ = require('jquery'),
+    Backbone = require('backbone'),
+    Artist = require('./artist'),
+    TrackFetcher = require('./track_fetcher');
+
+module.exports = Backbone.Model.extend({
   initialize: function(){
     self = this;
   },

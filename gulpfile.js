@@ -48,21 +48,10 @@ gulp.task('sass', function() {
     .pipe(gulp.dest(dirDest.styles));
 });
 
-// Concatenate & Minify JS
+// Minify JS
 gulp.task('scripts', function() {
-  return gulp.src(dirScripts + '**/*.js')
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest(dirDest.scripts))
-    .pipe(rename('all.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest(dirDest.scripts));
-});
-
-gulp.task('vendor_scripts', function(){
-  return gulp.src(dirVendor.root + '**/*.js')
-    .pipe(concat('vendor.all.js'))
-    .pipe(gulp.dest(dirDest.scripts))
-    .pipe(rename('vendor.all.min.js'))
+  return gulp.src(dirScripts + 'bundle.js')
+    .pipe(rename('bundle.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(dirDest.scripts));
 });
@@ -95,11 +84,10 @@ gulp.task('templates', function() {
 
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch(dirScripts + '**/*.js', ['lint', 'scripts']);
   gulp.watch(dirStyles + '**/*.sass', ['sass', 'styles']);
   gulp.watch(dirTemplates + '**/*.jade', ['templates']);
 });
 
 // Default Task
-gulp.task('default', ['lint', 'sass', 'scripts',
+gulp.task('default', ['lint', 'sass',
           'vendor_styles', 'styles', 'templates', 'watch']);

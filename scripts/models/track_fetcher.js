@@ -1,4 +1,9 @@
-var TrackFetcher = Backbone.Model.extend({
+var $ = require('jquery'),
+    Backbone = require('backbone');
+
+Backbone.$ = window.$;
+
+module.exports = Backbone.Model.extend({
   initialize: function(){
     self = this;
     self.index = 0;
