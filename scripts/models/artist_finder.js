@@ -15,7 +15,7 @@ module.exports = Backbone.Model.extend({
       apiSecret : '4b9340fc31f703706649cc8f617a9939'
     });
     var artist;
-
+    
     options.limit = options.limit || 10;
     options.page  = options.page  || 1;
 
