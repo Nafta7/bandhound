@@ -6,7 +6,7 @@ Backbone.$ = window.$;
 module.exports = Backbone.Model.extend({
   initialize: function(){
     self = this;
-    self.index = 0;
+    self.index = 1;
   },
 
   fetchTrack: function(options){
@@ -30,7 +30,7 @@ module.exports = Backbone.Model.extend({
         attrs += "data-track-index='" + self.index++ + "'";
         var tr = "<tr " + attrs + "><td>" + options.track + "</td>";
         tr += "<td>" + options.artist + "</td></tr>";
-        $('#playlist').append(tr);
+        $('#playlist table').append(tr);
         // data.items[0].snippet.title
       }
     });
