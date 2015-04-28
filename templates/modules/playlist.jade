@@ -1,4 +1,9 @@
-.grid.grid-gut.main-content
-  #loader.loader.hidden
-  .col-1-2
-      ul#playlist(data-track-playing="0")
+#content-main.grid.grid-gut.main-content
+  #hero
+    h2
+      | Discover new music while listening.
+  #loader-container.hidden
+    #loader.loader
+  #col-playlist.col-1-2
+      table#playlist.playlist
+      input#load-more(type="submit" value="Load more" class="hidden")

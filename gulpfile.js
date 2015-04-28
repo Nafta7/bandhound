@@ -50,7 +50,7 @@ gulp.task('sass', function() {
 
 // Minify JS
 gulp.task('scripts', function() {
-  return gulp.src(dirScripts + 'bundle.js')
+  return gulp.src(dirDest.scripts + 'bundle.js')
     .pipe(rename('bundle.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest(dirDest.scripts));

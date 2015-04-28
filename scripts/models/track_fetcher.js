@@ -28,8 +28,9 @@ module.exports = Backbone.Model.extend({
       if (data.items) {
         var attrs = "data-youtube-id='" + data.items[0].id.videoId + "' ";
         attrs += "data-track-index='" + self.index++ + "'";
-        $('#playlist').append("<li><a " + attrs + ">" +
-          options.artist + " - " + options.track + "</a></li>");
+        var tr = "<tr " + attrs + "><td>" + options.track + "</td>";
+        tr += "<td>" + options.artist + "</td></tr>";
+        $('#playlist').append(tr);
         // data.items[0].snippet.title
       }
     });
