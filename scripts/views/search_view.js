@@ -1,7 +1,8 @@
-var $ = require('jquery'),
-    Backbone = require('backbone'),
-    PlaylistView = require('./playlist_view');
-Backbone.$ = window.$;
+var $ = require('jquery');
+var Backbone = require('backbone');
+var PlaylistView = require('./playlist_view');
+
+Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   initialize: function(){

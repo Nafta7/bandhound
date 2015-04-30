@@ -1,7 +1,7 @@
-var $ = require('jquery'),
-    Backbone = require('backbone'),
-    Artist = require('./artist'),
-    TrackFetcher = require('./track_fetcher');
+var $ = require('jquery');
+var Backbone = require('backbone');
+var Artist = require('./artist');
+var TrackFetcher = require('./track_fetcher');
 
 module.exports = Backbone.Model.extend({
   initialize: function(){
@@ -15,7 +15,7 @@ module.exports = Backbone.Model.extend({
       apiSecret : '4b9340fc31f703706649cc8f617a9939'
     });
     var artist;
-    
+
     options.limit = options.limit || 10;
     options.page  = options.page  || 1;
 

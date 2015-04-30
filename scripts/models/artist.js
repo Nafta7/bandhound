@@ -1,5 +1,5 @@
-var $ = require('jquery'),
-    Backbone = require('backbone');
+var $ = require('jquery');
+var Backbone = require('backbone');
 
 module.exports = Backbone.Model.extend({
   topTracks: function(options){

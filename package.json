@@ -22,6 +22,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "jquery": {
+      "exports": "$"
+    },
+    "backbone": {
+      "depends": "jquery",
+      "exports": "Backbone"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://Nafta7@bitbucket.org/Nafta7/bandhound.git"
