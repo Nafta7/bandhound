@@ -2,21 +2,31 @@
   border: 1px solid red
 
 .table-playlist
+  color: #fff
   width: 100%
+
   tr
-    border-top: 1px solid black
-    border-bottom: 1px solid black
     padding: 10px
+
+    th
+      background: $black-red
+
+  tr:nth-child(even)
+    background: $dark-red
+
   tr:hover, tr.current
-    background: #ccc
+    background: $light-red
     cursor: pointer
-  th
-    background: black
-    color: white
 
   th, td
     text-align: left
     padding: 10px
+
+  th#track-head
+    width: 65%
+
+  th#artist-head
+    width: 35%
 
 #load-more
   width: 100%

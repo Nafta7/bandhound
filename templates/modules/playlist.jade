@@ -1,12 +1,11 @@
 #content-main.grid.grid-gut.main-content
-  #hero
-    h2
-      | Discover new music while listening.
-  #playlist.col-1-2
-      table.table-playlist
+  #playlist.col-1-1
+      table.table-playlist.hidden
+        thead
+          tr
+            th(id="track-head") Track
+            th(id="artist-head") Artist
       input#load-more(type="submit" value="Load more" class="hidden")
-  #playlist-description.col-1-2
-    p Brief description about the band...
   
 .grid.grid-gut
   #loader-container.col-1-2.hidden
