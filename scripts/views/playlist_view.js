@@ -1,9 +1,9 @@
-var $ = require('jquery'),
-    Backbone = require('backbone'),
-    ArtistFinder = require('../models/artist_finder'),
-    PlayerView = require('./player_view');
+var $ = require('jquery');
+var Backbone = require('backbone');
+var ArtistFinder = require('../models/artist_finder');
+var PlayerView = require('./player_view');
 
-Backbone.$ = window.$;
+Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
   initialize: function(){
@@ -104,19 +104,21 @@ module.exports = Backbone.View.extend({
 
   loading: function(){
     // Display load spinner
-    var $loader = $('#loader-container');
-    $loader.removeClass('hidden');
-
-    // Hide load more button
-    var $loadMore = $('#load-more');
-    $loadMore.addClass('hidden');
+    // var $loader = $('#loader-container');
+    // $loader.removeClass('hidden');
+    //
+    // // Hide load more button
+    // var $loadMore = $('#load-more');
+    // $loadMore.addClass('hidden');
   },
 
   loaded: function(){
-    var $loader = $('#loader-container');
-    $loader.addClass('hidden');
+    // var $loader = $('#loader-container');
+    // $loader.addClass('hidden');
+    //
+    // var $loadMore = $('#load-more');
+    // $loadMore.removeClass('hidden');
 
-    var $loadMore = $('#load-more');
-    $loadMore.removeClass('hidden');
+    $('#playlist table').removeClass('hidden');
   }
 });
