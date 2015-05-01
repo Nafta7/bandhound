@@ -7,59 +7,23 @@
   z-index: 100
 
   #logo
-    font-family: 'Maven Pro', sans-serif
     font-size: 2.2em
-    color: #fff
     display: inline
 
-  .logo
-    width: auto
-    float: left
-
   #search
-    width: 20em
     float: right
     position: relative
 
-    input[type="text"]
-      float: right
-      background: #61001E
-      border: 1px solid white
-      padding: 8px
-      color: white
-      font-family: 'Maven Pro', sans-serif
-      font-size: 1.5em
-
-    /* do not group these rules */
-    *::-webkit-input-placeholder
-      color: white
-
-    *:-moz-placeholder
-      /* FF 4-18 */
-      color: white
-
-    *::-moz-placeholder
-      /* FF 19+ */
-      color: white
-
-    *:-ms-input-placeholder
-      /* IE 10+ */
-      color: white
-
     .search-icon
-      color: white
       position: absolute
-      top: 15px
+      color: $white
       right: 10px
+      top: 19px
 
-#hero
-  background-image: url('../../images/instruments.jpg')
-  background-position: center
-  background-size: cover
 
-  h2
-    text-align: center
-    font-family: 'Maven', sans-serif
-    padding: 250px 50px
-    color: white
-    font-size: 3em
+/* wide */
+
+@media(min-width: $tablet-width)
+  .header
+    #search
+      width: 20em

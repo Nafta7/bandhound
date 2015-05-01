@@ -1,0 +1,38 @@
+// Device dimensions
+$tablet-width: 780px
+$desktop-width: 1000px
+
+// Colors
+$white: #fff
+$light-red: #CF003F
+$dark-red: #850028
+$darken-red: #61001E
+$dark-black: #EEE
+$black-red: #2B000D
+
+// UI element dimensions
+$player-size: 400px
+$player-controls-height: 50px
+
+$playlist-item-pad: 10px
+
+// defaults
+$def-pad: 20px
+
+// Mixins
+@mixin input-placeholder($color)
+  /* do not group these rules */
+  *::-webkit-input-placeholder
+    color: $color
+
+  *:-moz-placeholder
+    /* FF 4-18 */
+    color: $color
+
+  *::-moz-placeholder
+    /* FF 19+ */
+    color: $color
+
+  *:-ms-input-placeholder
+    /* IE 10+ */
+    color: $color

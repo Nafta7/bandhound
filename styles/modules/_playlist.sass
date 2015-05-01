@@ -1,32 +1,29 @@
-.highlight
-  border: 1px solid red
-
 .table-playlist
-  color: #fff
+  color: $white
   width: 100%
 
   tr
-    padding: 10px
-
     th
       background: $black-red
+      &:hover
+        cursor: auto
 
-  tr:nth-child(even)
-    background: $dark-red
+    &:nth-child(even)
+      background: $dark-red
 
-  tr:hover, tr.current
-    background: $light-red
-    cursor: pointer
+    &:hover, &.current
+      background: $light-red
+      cursor: pointer
 
-  th, td
-    text-align: left
-    padding: 10px
+    th, td
+      text-align: left
+      padding: $playlist-item-pad
 
-  th#track-head
-    width: 65%
+    th#track-head
+      width: 65%
 
-  th#artist-head
-    width: 35%
+    th#artist-head
+      width: 35%
 
 #load-more
   width: 100%

@@ -1,7 +1,3 @@
-// Include gulp
-//npm install --save-dev gulp-jshint gulp-sass gulp-concat gulp-uglify
-//gulp-rename gulp-minify-css gulp-jade gulp-sourcemaps
-
 var gulp = require('gulp');
 
 // Include Our Plugins
@@ -13,32 +9,46 @@ var rename = require('gulp-rename');
 var minifycss = require('gulp-minify-css');
 var jade = require('gulp-jade');
 var sourcemaps = require('gulp-sourcemaps');
+var uncss = require ('gulp-uncss');
 
+// Source directories
 var dirScripts   = 'scripts/';
 var dirStyles    = 'styles/';
 var dirTemplates = 'templates/';
 
+// Destionation directories
 var dirDest = {
   root: 'www/',
   scripts: 'www/scripts/',
   styles: 'www/styles/',
-  templates: 'www/pages/'
+  templates: 'www/pages/',
+  vendor: 'www/vendor/'
 };
 
 var dirVendor = {
   root: 'vendor/',
   scripts: 'vendor/scripts/',
-  styles: 'vendor/styles/'
+  styles: {
+    open_iconic: 'vendor/components/open-iconic/font/css/open-iconic.css'
+  }
 };
 
-// Lint Task
+
+
+/*-------------------------------
+--------DEVELOPMENT TASKS--------
+---------------------------------*/
+
+
+
+// Lint scripts
 gulp.task('lint', function() {
   return gulp.src(dirScripts + '*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
 
-// Compile Our Sass
+// Compile our Sass styles
 gulp.task('sass', function() {
   return gulp.src(dirStyles + '**/*.sass')
     .pipe(sourcemaps.init())
@@ -48,33 +58,8 @@ gulp.task('sass', function() {
     .pipe(gulp.dest(dirDest.styles));
 });
 
-// Minify JS
-gulp.task('scripts', function() {
-  return gulp.src(dirDest.scripts + 'bundle.js')
-    .pipe(rename('bundle.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest(dirDest.scripts));
-});
-
-gulp.task('vendor_styles', function(){
-  return gulp.src(dirVendor.root + '**/*.css')
-    .pipe(concat('vendor.all.css'))
-    .pipe(gulp.dest(dirDest.styles))
-    .pipe(rename('vendor.all.min.css'))
-    .pipe(minifycss())
-    .pipe(gulp.dest(dirDest.styles));
-});
-
-//Concatenate & Minify CSS
-gulp.task('styles', function(){
-  return gulp.src(dirDest.styles + '**/*.css')
-    .pipe(concat('all.css'))
-    .pipe(rename('all.min.css'))
-    .pipe(minifycss())
-    .pipe(gulp.dest(dirDest.styles));
-});
-
-gulp.task('templates', function() {
+// Compile our jade templates
+gulp.task('jade', function() {
   return gulp.src(dirTemplates + 'pages/*.jade')
     .pipe(jade({
       pretty: true
@@ -82,12 +67,43 @@ gulp.task('templates', function() {
     .pipe(gulp.dest(dirDest.root));
 });
 
+
+
+/*-------------------------------
+-----------BUILD TASKS-----------
+---------------------------------*/
+
+
+
+// Minify js
+gulp.task('buildjs', function() {
+  return gulp.src(dirDest.scripts + 'bundle.js')
+    .pipe(rename('bundle.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(dirDest.scripts));
+});
+
+//Concatenate & Minify CSS
+gulp.task('buildcss', function(){
+  var maincss = dirDest.styles + '**/*.css';
+  var vendorcss = dirVendor.styles.open_iconic;
+  return gulp.src([vendorcss, maincss])
+    .pipe(concat('all.css'))
+    .pipe(rename('all.min.css'))
+    // .pipe(uncss({
+    //   html: [
+    //       'www/index.html'
+    //   ]}))
+    // .pipe(gulp.dest('./out'))
+    .pipe(minifycss())
+    .pipe(gulp.dest(dirDest.styles));
+});
+
 // Watch Files For Changes
 gulp.task('watch', function() {
-  gulp.watch(dirStyles + '**/*.sass', ['sass', 'styles']);
-  gulp.watch(dirTemplates + '**/*.jade', ['templates']);
+  gulp.watch(dirStyles + '**/*.sass', ['sass']);
+  gulp.watch(dirTemplates + '**/*.jade', ['jade']);
 });
 
 // Default Task
-gulp.task('default', ['lint', 'sass',
-          'vendor_styles', 'styles', 'templates', 'watch']);
+gulp.task('default', ['lint', 'sass', 'jade', 'watch']);
