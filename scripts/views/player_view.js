@@ -51,7 +51,7 @@ module.exports = Backbone.View.extend({
 
   startPlaying: function(){
     var $play = this.$el.find('#play-track');
-    $play.removeClass('fa-play').addClass('fa-pause');
+    $play.attr('data-glyph', 'media-pause');
 
     this.player.playVideo();
     this.isPlaying = true;
@@ -59,7 +59,7 @@ module.exports = Backbone.View.extend({
 
   stopPlaying: function(){
     var $play = this.$el.find('#play-track');
-    $play.removeClass('fa-pause').addClass('fa-play');
+    $play.attr('data-glyph', 'media-play');
 
     this.player.stopVideo();
     this.isPlaying = false;
@@ -85,7 +85,10 @@ module.exports = Backbone.View.extend({
     if (e != null)
       e.preventDefault();
 
-    $('#toggle-player i').toggleClass('fa-chevron-up fa-chevron-down');
+    var toggle = $('#toggle-player span');
+    var state = toggle.attr('data-glyph');
+    toggle.attr('data-glyph', state == 'chevron-bottom' ?
+      'chevron-top' : 'chevron-bottom');
     $('#player-fixed').slideToggle('slow');
   },
 
@@ -94,7 +97,7 @@ module.exports = Backbone.View.extend({
     this.player.loadVideoById(track.id);
     this.isPlaying = true;
     var $play = this.$el.find('#play-track');
-    $play.removeClass('fa-play').addClass('fa-pause');
+    $play.attr('data-glyph', 'media-pause');
   },
 
   nowPlaying: function(artist, title){
