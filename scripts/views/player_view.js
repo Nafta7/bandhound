@@ -93,6 +93,9 @@ module.exports = Backbone.View.extend({
   },
 
   play: function(track){
+    // if first time, display the player controls
+    // this.$el.removeClass('hidden');
+
     this.nowPlaying(track.artist, track.title);
     this.player.loadVideoById(track.id);
     this.isPlaying = true;
