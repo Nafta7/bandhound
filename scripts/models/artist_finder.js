@@ -30,7 +30,11 @@ module.exports = Backbone.Model.extend({
         });
         artist.topTracks({mbid: dataArtist.mbid, limit: 2});
       });
-      options.callback();
+
+      setTimeout(function(){
+        options.callback();
+      }, 500);
+
     }, error: function(code, message){
       console.log(message);
     }});
