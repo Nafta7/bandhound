@@ -47,9 +47,11 @@ module.exports = Backbone.View.extend({
   },
 
   loadMore: function(){
-    this.loading();
-    this.artistFinder.findSimilar({
-      artist: this.artist, page: ++this.page, callback: this.loaded });
+    var loader = '<div class="small-loader"></div>';
+    $('#load-more').addClass('hidden');
+    $('#more-loader').append(loader);
+     this.artistFinder.findSimilar({
+       artist: this.artist, page: ++this.page, callback: this.loadedMore });
   },
 
   playSong: function(e){
@@ -98,27 +100,36 @@ module.exports = Backbone.View.extend({
     this.clear();
     this.loading();
     this.artistFinder = new ArtistFinder();
+    this.artist = artist;
     this.artistFinder.findSimilar({artist: artist, callback: this.loaded});
     this.enabled = true;
   },
 
-  loading: function(){
+  loading: function(loader){
+    // Hide load more button
+    // $('#load-more').css('opacity', '0');
+    $('#load-more').addClass('hidden');
+    // $('#playlist table').css('opacity', '0');
+    $('#playlist table').addClass('hidden');
+
     // Display load spinner
-    // var $loader = $('#loader-container');
-    // $loader.removeClass('hidden');
-    //
-    // // Hide load more button
-    // var $loadMore = $('#load-more');
-    // $loadMore.addClass('hidden');
-  },
+    var $loader = $('#main-loader');
+    $loader.append('<div class="loader"></div>');
+},
 
   loaded: function(){
-    // var $loader = $('#loader-container');
-    // $loader.addClass('hidden');
-    //
-    // var $loadMore = $('#load-more');
-    // $loadMore.removeClass('hidden');
-
+    // $('#load-more').css('opacity', '1');
+    $('#load-more').removeClass('hidden');
+    // $('#playlist table').css('opacity', '1');
     $('#playlist table').removeClass('hidden');
+    $('#main-loader .loader').remove();
+  },
+
+  loadedMore: function(){
+    $('#more-loader').empty();
+    // $('#load-more').animate({opacity: '1'});
+    $('#load-more').removeClass('hidden');
+
   }
+
 });
