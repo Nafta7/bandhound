@@ -30,7 +30,8 @@ module.exports = Backbone.Model.extend({
         attrs += "data-track-index='" + self.index++ + "'";
         var tr = "<tr " + attrs + "><td>" + options.track + "</td>";
         tr += "<td>" + options.artist + "</td></tr>";
-        $('#playlist table').append(tr);
+        // $('#playlist table').append(tr);
+        $(tr).hide().appendTo('#playlist table').fadeIn(1000);
         // data.items[0].snippet.title
       }
     });
