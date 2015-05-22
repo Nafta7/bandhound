@@ -1,4 +1,7 @@
-@include input-placeholder($white)
+@include input-placeholder($dark-red)
+
+@media(min-width: $tablet-width)
+  @include input-placeholder($white)
 
 body, input[type="text"]
   font-family: 'Maven Pro', sans-serif
@@ -27,7 +30,20 @@ a
   border: 1px solid transparent
   text-decoration: none
   &:hover
+    background: $white
     color: $light-red
+
+h1
+  font-size: $h1-size
+  font-weight: bold
+  margin-bottom: 10%
+
+h2
+  font-size: $h2-size
+  margin-bottom: 20%
+
+h1, h2
+  color: white
 
 img
   width: 100%
@@ -36,3 +52,13 @@ img
   -moz-box-sizing: border-box
   -webkit-box-sizing: border-box
   box-sizing: border-box
+
+
+@media(min-width: $tablet-width)
+  h1
+    font-size: 4.5em
+    margin-bottom: 10px
+
+  h2
+    font-size: 2.0em
+    margin-bottom: 40px

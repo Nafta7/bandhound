@@ -1,9 +1,10 @@
-.container
-  #content-main
-    #playlist
-        table.table-playlist.hidden
-          thead
-            tr
-              th(id="track-head") Track
-              th(id="artist-head") Artist
-        input#load-more(type="submit" value="Load more" class="hidden")
+#main-loader
+#playlist
+  table.table-playlist.hidden
+    thead
+      tr
+        th(id="track-head") Track
+        th(id="artist-head") Artist
+  a#load-more(class="btn-load-more").hidden
+    | Load more
+  #more-loader
