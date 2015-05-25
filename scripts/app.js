@@ -1,9 +1,9 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
-var SearchView = require('./views/search_view.js');
+var MainView = require('./views/main_view.js');
 
 Backbone.$ = $;
 
 $(document).ready(function(){
-  var searchView = new SearchView({el: $('#search')});
+  var mainView = new MainView({el: $('#discover')});
 });

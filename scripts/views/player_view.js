@@ -11,6 +11,7 @@ module.exports = Backbone.View.extend({
     this.playlist = options.playlist;
     this.initYoutube();
     this.togglePlayer(null);
+    this.isVisible = false;
   },
 
   initYoutube: function(){
@@ -93,6 +94,10 @@ module.exports = Backbone.View.extend({
   },
 
   play: function(track){
+    if (!this.isVisible) {
+      this.$el.removeClass('hidden');
+      this.isVisible = true;
+    }
     // if first time, display the player controls
     // this.$el.removeClass('hidden');
 

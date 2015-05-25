@@ -5,7 +5,8 @@ var PlaylistView = require('./playlist_view');
 Backbone.$ = $;
 
 module.exports = Backbone.View.extend({
-  initialize: function(){
+  initialize: function(options){
+    this.main = options.main;
     this.playlist = new PlaylistView({el: $('#playlist')});
   },
 
@@ -14,9 +15,17 @@ module.exports = Backbone.View.extend({
   },
 
   keyPressHandler: function(e){
+    var self = this;
     if (e.keyCode == 13){
-      $('#hero').addClass('hidden');
+      if (self.main.isActive)
+        self.main.hide();
       this.playlist.findSimilarArtists(this.$el.children('#search-artist').val());
     }
+  },
+
+  search: function(artistName){
+    if (this.main.isActive)
+      this.main.hide();
+    this.playlist.findSimilarArtists(artistName);
   }
 });
