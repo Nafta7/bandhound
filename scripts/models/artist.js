@@ -11,7 +11,6 @@ module.exports = Backbone.Model.extend({
       data.toptracks.track.forEach(function(track){
         trackFetcher.fetchTrack({artist: track.artist.name, track: track.name});
       });
-      // $('#loader').hide();
     }, error: function(code, message){
       console.log(message);
     }});
