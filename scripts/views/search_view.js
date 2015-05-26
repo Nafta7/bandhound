@@ -22,13 +22,8 @@ module.exports = Backbone.View.extend({
 
   search: function(artistName){
     this.clearMessages();
-    if (artistName == "") {
+    if (artistName == "" || this.playlist.isLoading)
       return;
-    }
-
-    if (this.playlist.isLoading) {
-      return;
-    }
 
     if (this.main.isActive)
       this.main.hide();
