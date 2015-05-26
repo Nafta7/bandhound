@@ -6,9 +6,18 @@
   width: 100%
   z-index: 100
 
+.preview
+  color: $white
+  position: relative
+  top: -17px
+  font-size: 45%
+
 #logo
   font-size: 2.2em
   display: inline
+
+  a:hover
+    background: transparent
 
 #search
   display: inline-block
@@ -39,6 +48,9 @@
     z-index: 3
     transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000)
     cursor: pointer
+
+  input[type="text"]:hover + span
+    color: $gray-light-red
 
   input[type="text"]:focus:hover
     border-bottom: 1px solid #BBB
@@ -74,19 +86,6 @@
 
   input[type="submit"]:hover
     opacity: 0.8
-
-#discover
-  input[type="text"]
-    width: 60%
-  .search-icon
-    height: 45px
-    cursor: pointer
-    padding: 16px
-    position: relative
-    top: -3px
-    left: -3px
-    background: $white
-    color: $dark-red
 
 
 /* wide */
