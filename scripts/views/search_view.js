@@ -16,16 +16,27 @@ module.exports = Backbone.View.extend({
 
   keyPressHandler: function(e){
     var self = this;
-    if (e.keyCode == 13){
-      if (self.main.isActive)
-        self.main.hide();
-      this.playlist.findSimilarArtists(this.$el.children('#search-artist').val());
-    }
+    if (e.keyCode == 13)
+      this.search(this.$el.children('#search-artist').val());
   },
 
   search: function(artistName){
+    this.clearMessages();
+    if (artistName == "") {
+      return;
+    }
+
+    if (this.playlist.isLoading) {
+      return;
+    }
+
     if (this.main.isActive)
       this.main.hide();
     this.playlist.findSimilarArtists(artistName);
+  },
+
+  clearMessages: function(){
+    $("#message").empty();
+    $("#message").addClass('hidden');
   }
 });
