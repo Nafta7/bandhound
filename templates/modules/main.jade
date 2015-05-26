@@ -1,8 +1,12 @@
-#discover
-  h1
-    | Music discovery made easy
-  h2
-    | Uncover similar artists to the ones you love.
-  input(id='main-search' type='text' name='artist-name' 
-        placeholder='Type an artist you like')
-  span(id="search_submit" class='oi search-icon' data-glyph='magnifying-glass')
+#main
+  p#message.message.hidden
+  #discover
+    h1
+      | Music discovery made easy
+    h2
+      | Uncover similar artists to the ones you love.
+    input(id='main-search' type='text' name='artist-name' 
+          placeholder='Type an artist you like')
+    label
+      span(id="search_submit" class='oi main-search-icon' data-glyph='magnifying-glass')
+      input(id="main-search-submit" type="button" class="main-search-submit")
