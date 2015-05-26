@@ -1,8 +1,42 @@
-#discover
-  margin-top: 25%
+#main
   text-align: center
+
+#discover
+  input[type="text"]
+    width: 60%
+
+  label
+    cursor: pointer
+    position: relative
+    left: -49px
+
+  .main-search-submit
+
+    border: 0
+    top: 0px
+    height: 49px
+    width: 50px
+    cursor: pointer
+    padding: 16px
+    position: relative
+    left: -33px
+    background: transparent
+
+  .main-search-icon
+    position: relative
+    color: $white
+    right: -9px
+    top: 3px
+    z-index: 1
+    &:hover
+      color: $darken-red
+
+.message
+  font-size: 160%
+  margin-top: 55%
 
 
 @media(min-width: $tablet-width)
-  #discover
-    margin-top: 15%
+  .message
+    margin-top: 25%
+    font-size: 220%
