@@ -27,7 +27,7 @@ module.exports = Backbone.View.extend({
   search: function(){
     var query = $('#main-search').val();
     if (query !== "")
-      this.searchView.search($("#main-search").val());
+      this.searchView.search(query);
   },
 
   hide: function(){
