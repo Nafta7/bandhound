@@ -14,7 +14,8 @@ module.exports = Backbone.View.extend({
       playlist: this
     });
     this.$playlist = this.$el.find('table');
-    this.page = 1;
+    this.page = 0;
+    this.isLoading = false;
   },
 
   events: {
@@ -101,11 +102,19 @@ module.exports = Backbone.View.extend({
     this.loading();
     this.artistFinder = new ArtistFinder();
     this.artist = artist;
-    this.artistFinder.findSimilar({artist: artist, callback: this.loaded});
+
+    this.artistFinder.findSimilar({
+      artist: artist,
+      callback: this.loaded,
+      self: this,
+      errorHandler: this.errorHandler
+    });
+
     this.enabled = true;
   },
 
   loading: function(loader){
+    this.isLoading = true;
     // Hide load more button
     // $('#load-more').css('opacity', '0');
     $('#load-more').addClass('hidden');
@@ -115,14 +124,27 @@ module.exports = Backbone.View.extend({
     // Display load spinner
     var $loader = $('#main-loader');
     $loader.append('<div class="loader"></div>');
-},
+  },
 
-  loaded: function(){
+  errorHandler: function(self, code, message){
+    console.log("error code: " + code);
+    console.log("message: " + message);
+    var $message = $("#message");
+    $message.append("Well this is embarrassing...").append("<br>").
+      append("We couldn't find any similar artists.");
+    $message.removeClass('hidden');
+
+    $('#main-loader .loader').remove();
+    self.isLoading = false;
+  },
+
+  loaded: function(self){
     // $('#load-more').css('opacity', '1');
     $('#load-more').removeClass('hidden');
     // $('#playlist table').css('opacity', '1');
     $('#playlist table').removeClass('hidden');
     $('#main-loader .loader').remove();
+    self.isLoading = false;
   },
 
   loadedMore: function(){
