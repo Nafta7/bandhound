@@ -152,9 +152,9 @@ gulp.task('buildjs', function() {
 
 //Concatenate & Minify CSS
 gulp.task('buildcss', function(){
-  var maincss = dirDest.styles + '**/*.css';
-  var vendorcss = dirVendor.styles.open_iconic;
-  return gulp.src([vendorcss, maincss])
+  var maincss = dirDest.styles + 'pages/**/*.css';
+  // var vendorcss = dirVendor.styles.open_iconic;
+  return gulp.src([maincss])
     .pipe(concat('all.css'))
     .pipe(rename('all.min.css'))
     .pipe(minifycss())
@@ -163,7 +163,7 @@ gulp.task('buildcss', function(){
 
 
 // Default Task
-// gulp.task('default', ['lint', 'sass', 'jade', 'watch']);
+gulp.task('default', ['jade', 'sass', 'buildjs', 'buildcss']);
 
 // Watch Files For Changes
 gulp.task('watch', function(){
