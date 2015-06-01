@@ -5,8 +5,10 @@
       | Music discovery made easy
     h2
       | Uncover similar artists to the ones you love.
-    input(id='main-search' type='text' name='artist-name' 
-          placeholder='Type an artist you like')
-    label
-      span(id="search_submit" class='oi main-search-icon' data-glyph='magnifying-glass')
-      input(id="main-search-submit" type="button" class="main-search-submit")
+    div.main-search
+      input(id='main-search' class="main-search-input" type='text' 
+      name='artist-name' placeholder='Type an artist you like')
+      label
+        input(id="main-search-submit" type="button" class="main-search-submit")
+        span(id="search_submit" class='oi main-search-icon' 
+             data-glyph='magnifying-glass')
