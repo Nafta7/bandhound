@@ -14,7 +14,7 @@ module.exports = Backbone.Model.extend({
     });
     var artist;
 
-    options.limit = options.limit || 5;
+    options.limit = options.limit || 8;
     options.page  = options.page  || 0;
 
     /*
