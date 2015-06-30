@@ -15,6 +15,8 @@ var path = {
 var toska = require('toska');
 var tasks = toska.mirror('tasks', gulp, {path: path, $: plugins});
 
+gulp.task('default', tasks.build);
+
 gulp.task('serve', tasks.build, function(){
   plugins.browserSync.init({ server: "./www" });
    gulp.watch(path.styles.src + '**/*.sass', ['compile:sass']);
