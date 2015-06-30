@@ -9,7 +9,6 @@
     "browser-sync": "^2.7.13",
     "browserify": "^10.2.4",
     "connect-livereload": "^0.5.3",
-    "express": "^4.13.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.5.2",
     "gulp-if": "^1.2.5",
