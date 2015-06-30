@@ -24,7 +24,7 @@ var livereload = require('gulp-livereload');
 // Source directories
 var dirScripts   = 'scripts/';
 var dirStyles    = 'styles/';
-var dirTemplates = 'templates/';
+var dirTemplates = 'views/';
 
 // Destionation directories
 var dirDest = {
