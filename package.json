@@ -5,8 +5,9 @@
   "main": "gulpfile.js",
   "dependencies": {
     "backbone": "^1.1.2",
+    "browserify": "^10.2.4",
     "express": "^4.13.0",
-    "gulp": "^3.8.11",
+    "gulp": "^3.9.0",
     "gulp-concat": "^2.5.2",
     "gulp-jade": "^1.0.0",
     "gulp-jshint": "^1.9.2",
@@ -22,10 +23,8 @@
   },
   "devDependencies": {
     "connect-livereload": "^0.5.3",
-    "express": "^4.12.4",
     "gulp-if": "^1.2.5",
     "gulp-livereload": "^3.8.0",
-    "gulp-uncss": "^1.0.1",
     "gulp-util": "^3.0.4",
     "lodash.assign": "^3.2.0",
     "require-dir": "^0.3.0",

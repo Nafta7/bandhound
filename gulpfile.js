@@ -9,8 +9,6 @@ var rename = require('gulp-rename');
 var minifycss = require('gulp-minify-css');
 var jade = require('gulp-jade');
 var sourcemaps = require('gulp-sourcemaps');
-var uncss = require ('gulp-uncss');
-
 var watchify = require('watchify');
 var browserify = require('browserify');
 var gulp = require('gulp');
