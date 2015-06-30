@@ -187,7 +187,7 @@ gulp.task('buildcss', function(){
 
 
 // Default Task
-gulp.task('default', ['jade', 'sass', 'buildjs', 'compile:js', 'buildcss', 'icons']);
+gulp.task('default', ['jade', 'sass', 'buildjs', 'compile:js', 'vendor:js', 'buildcss', 'icons']);
 
 // Watch Files For Changes
 gulp.task('watch', function(){
