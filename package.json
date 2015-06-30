@@ -59,6 +59,9 @@
   "keywords": [
     "music"
   ],
+  "engines": {
+    "node": "0.12"
+  },
   "author": "Nafta",
   "license": "ISC"
 }
