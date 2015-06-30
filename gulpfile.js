@@ -5,7 +5,7 @@ plugins.browserSync = require('browser-sync');
 var path = {
   styles    : { src: 'styles/',  dest: 'www/styles/' },
   scripts   : { src: 'scripts/', dest: 'www/scripts/' },
-  templates : { src: 'views/',   dest: 'www/' },
+  templates : { src: 'views/',   dest: './' },
   vendor: {
     scripts:    { src: 'vendor/scripts/',    dest: 'www/scripts/' },
     components: { src: 'vendor/components/', dest: 'www/styles/'}
