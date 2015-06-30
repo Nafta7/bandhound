@@ -4,15 +4,14 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 
 module.exports = Backbone.Model.extend({
-  initialize: function(){
-    self = this;
+  initialize: function(youtubeCredentials){
+    this.key = "key=" + youtubeCredentials.apiKey;
     self.index = 1;
   },
 
   fetchTrack: function(options){
-    var key = 'key=AIzaSyC4weqo3y3a0GT_LbRVH4u7-My-lK6hcAE',
         // identifies one or more resource properties
-        parts = "part=snippet",
+        var parts = "part=snippet",
         // filters the API response
         fields = "fields=items(id, snippet(title))",
         // search url
@@ -22,7 +21,7 @@ module.exports = Backbone.Model.extend({
         //filter to only search for embeddable videos
         allowed = "videoEmbeddable=true&videoSyndicated=true&type=video";
 
-    url = url + search + "&" + parts + "&" + fields + "&" + allowed  + "&" + key;
+    url = url + search + "&" + parts + "&" + fields + "&" + allowed  + "&" + this.key;
 
     $.get(url, function(data){
       if (data.items) {
