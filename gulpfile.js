@@ -140,6 +140,22 @@ function notifyLiveReload(event) {
   });
 }
 
+gulp.task('compile:js', function(){
+    var b = browserify({
+      entries: './' + dirScripts + 'app.js',
+      debug: true
+    });
+    return b.bundle()
+    .pipe(source(dirScripts + 'bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    // Add transformation tasks to the pipeline here.
+    .on('error', gutil.log)
+    .pipe(sourcemaps.write('./'))
+    .pipe(rename('bundle.js')) // Always rename to 'clean' dest. path.
+    .pipe(gulp.dest(dirDest.scripts));
+});
+
 
 /*-------------------------------
 -----------BUILD TASKS-----------
@@ -171,7 +187,7 @@ gulp.task('buildcss', function(){
 
 
 // Default Task
-gulp.task('default', ['jade', 'sass', 'buildjs', 'js', 'buildcss', 'icons']);
+gulp.task('default', ['jade', 'sass', 'buildjs', 'compile:js', 'buildcss', 'icons']);
 
 // Watch Files For Changes
 gulp.task('watch', function(){
