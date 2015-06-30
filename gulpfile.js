@@ -24,6 +24,8 @@ var dirScripts   = 'scripts/';
 var dirStyles    = 'styles/';
 var dirTemplates = 'views/';
 
+var dirBower = 'vendor/components/';
+
 // Destionation directories
 var dirDest = {
   root: 'www/',
@@ -75,6 +77,11 @@ gulp.task('jade', function() {
       pretty: true
     }))
     .pipe(gulp.dest(dirDest.root));
+});
+
+gulp.task('vendor:js', function(){
+  gulp.src('vendor/scripts/' + '**/*.js')
+  .pipe(gulp.dest(dirDest.scripts));
 });
 
 
@@ -138,7 +145,10 @@ function notifyLiveReload(event) {
 -----------BUILD TASKS-----------
 ---------------------------------*/
 
-
+gulp.task('icons', function(){
+  gulp.src(dirBower + 'open-iconic/**/*')
+  .pipe(gulp.dest(dirDest.styles + '/open-iconic'));
+});
 
 // Minify js
 gulp.task('buildjs', function() {
@@ -161,7 +171,7 @@ gulp.task('buildcss', function(){
 
 
 // Default Task
-gulp.task('default', ['jade', 'sass', 'buildjs', 'buildcss']);
+gulp.task('default', ['jade', 'sass', 'buildjs', 'js', 'buildcss', 'icons']);
 
 // Watch Files For Changes
 gulp.task('watch', function(){
