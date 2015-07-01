@@ -15,8 +15,7 @@ module.exports = function(gulp, path, $){
     .pipe($.sourcemaps.init({loadMaps: true}))
     .on('error', gutil.log)
     .pipe($.sourcemaps.write('./'))
-    .pipe($.rename('bundle.js')) // Always rename to 'clean' dest. path.
-    .pipe(gulp.dest(path.scripts.dest))
+    .pipe(gulp.dest("./"))
     .pipe($.browserSync.stream());
   };
 }
