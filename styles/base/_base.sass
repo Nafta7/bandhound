@@ -8,30 +8,30 @@ body, input[type="text"]
 body
   background: $darken-red
 
+html, ul, h1, h2, p,  a,
+button, input
+  color: $white
+
 html
   font-size: 100%
 
 input[type="text"]
   font-size: 120%
   background: $dark-red
-  color: $white
   width: 100%
   border: 1px solid $white
   padding: 10px
 
 ul
   list-style: none
-  color: $white
   li
     display: inline
 
 p
-  color: $white
   font-size: 120%
 
 a
   cursor: pointer
-  color: $white
   border: 1px solid transparent
   text-decoration: none
   &:hover
@@ -47,8 +47,10 @@ h2
   font-size: $h2-size
   margin-bottom: 20%
 
-h1, h2
-  color: white
+button
+  background: none
+  border: none
+  outline: none
 
 img
   width: 100%
