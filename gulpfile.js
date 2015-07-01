@@ -5,12 +5,12 @@ plugins.browserSync = require('browser-sync');
 var gulpAug = require('gulp-augments')(gulp);
 
 var path = {
-  styles    : { src: 'styles/',  dest: 'www/styles/' },
-  scripts   : { src: 'scripts/', dest: 'www/scripts/' },
-  templates : { src: 'views/',   dest: './' },
+  styles    : { src: 'styles/',  dest: 'publish/styles/' },
+  scripts   : { src: 'scripts/', dest: 'publish/scripts/' },
+  templates : { src: 'views/',   dest: 'publish' },
   vendor: {
-    scripts:    { src: 'vendor/scripts/',    dest: 'www/scripts/' },
-    components: { src: 'vendor/components/', dest: 'www/styles/'}
+    scripts:    { src: 'vendor/scripts/',    dest: 'publish/scripts/' },
+    components: { src: 'vendor/components/', dest: 'publish/styles/'}
   }
 };
 
