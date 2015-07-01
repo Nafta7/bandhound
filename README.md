@@ -4,7 +4,9 @@ bandhound is a music discovery webapp that aims to help people discover  artists
 
 ## credentials
 
-Before anything you will need to request two API keys, one from Youtube and another from Last.fm. The Last.fm key should be pretty straightforward, however, for the Youtube api key key will you also need to register your application. You can follow [these instructions](https://developers.google.com/youtube/registering_an_application) in case you have problems setting up your application.
+Before anything you will need to request two API keys, one from Youtube and another from Last.fm. The Last.fm key should be pretty straightforward to get, however, for the Youtube api key will you also need to register your application in order to use it.
+
+You can follow [these instructions](https://developers.google.com/youtube/registering_an_application) in case you have problems setting up your application.
 
 Next, open the `credentials.json` and add the api keys.
 
