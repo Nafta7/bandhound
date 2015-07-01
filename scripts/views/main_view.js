@@ -14,8 +14,8 @@ module.exports = Backbone.View.extend({
   },
 
   events: {
-    "keyup #main-search": "keyPressHandler",
-    "click #main-search-submit": "search"
+    "keyup [data-action=main-search]": "keyPressHandler",
+    "click [data-action=main-search-submit]": "search"
 
   },
 
@@ -25,7 +25,7 @@ module.exports = Backbone.View.extend({
   },
 
   search: function(){
-    var query = $('#main-search').val();
+    var query = $('[data-action=main-search]').val();
     this.searchView.search(query)
   },
 

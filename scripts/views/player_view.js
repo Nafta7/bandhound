@@ -35,10 +35,10 @@ module.exports = Backbone.View.extend({
   },
 
   events: {
-    'click #previous-track': 'playPrevious',
-    'click #next-track': 'playNext',
-    'click #toggle-player': 'togglePlayer',
-    'click #play-track': 'playStop'
+    'click [data-action=previous-track]': 'playPrevious',
+    'click [data-action=next-track]': 'playNext',
+    'click [data-action=toggle-player]': 'togglePlayer',
+    'click [data-action=play-track]': 'playStop'
   },
 
   playStop: function(){
@@ -51,16 +51,16 @@ module.exports = Backbone.View.extend({
   },
 
   startPlaying: function(){
-    var $play = this.$el.find('#play-track');
-    $play.attr('data-glyph', 'media-pause');
+    var $playIcon = this.$el.find('[data-action=play-track] span');
+    $playIcon.attr('data-glyph', 'media-pause');
 
     this.player.playVideo();
     this.isPlaying = true;
   },
 
   stopPlaying: function(){
-    var $play = this.$el.find('#play-track');
-    $play.attr('data-glyph', 'media-play');
+    var $playIcon = this.$el.find('[data-action=play-track] span');
+    $playIcon.attr('data-glyph', 'media-play');
 
     this.player.stopVideo();
     this.isPlaying = false;
@@ -86,11 +86,12 @@ module.exports = Backbone.View.extend({
     if (e != null)
       e.preventDefault();
 
-    var toggle = $('#toggle-player span');
+    var toggle = $('[data-action=toggle-player] span');
     var state = toggle.attr('data-glyph');
-    toggle.attr('data-glyph', state == 'chevron-bottom' ?
-      'chevron-top' : 'chevron-bottom');
-    $('#player-fixed').slideToggle('slow');
+    var toggledState = state == 'chevron-bottom' ? 'chevron-top'
+                                             : 'chevron-bottom';
+    toggle.attr('data-glyph', toggledState);
+    $('[data-action=player-slide]').slideToggle('slow');
   },
 
   play: function(track){
@@ -98,19 +99,17 @@ module.exports = Backbone.View.extend({
       this.$el.removeClass('hidden');
       this.isVisible = true;
     }
-    // if first time, display the player controls
-    // this.$el.removeClass('hidden');
-
     this.nowPlaying(track.artist, track.title);
     this.player.loadVideoById(track.id);
     this.isPlaying = true;
-    var $play = this.$el.find('#play-track');
-    $play.attr('data-glyph', 'media-pause');
+
+    var $playIcon = this.$el.find('[data-action=play-track] span');
+    $playIcon.attr('data-glyph', 'media-pause');
   },
 
   nowPlaying: function(artist, title){
-    this.$el.find('#track').text(title);
-    this.$el.find('#artist').text(artist);
+    this.$el.find('[data-action=display-track-name]').text(title);
+    this.$el.find('[data-action=display-artist-name]').text(artist);
   }
 
 });

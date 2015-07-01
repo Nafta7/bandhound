@@ -1,10 +1,10 @@
-#main-loader
+#main-loader(data-id="main-loader")
 #playlist
   table.table-playlist.hidden
     thead
       tr
         th(id="track-head") Track
         th(id="artist-head") Artist
-  a#load-more(class="btn-load-more").hidden
+  a(data-action="load-more" class="btn-load-more hidden")
     | Load more
-  #more-loader
+  #more-loader(data-id="more-loader") 

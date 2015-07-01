@@ -19,26 +19,8 @@ module.exports = Backbone.View.extend({
   },
 
   events: {
-    "click tr": "playSong",
-    "click #load-more": "loadMore"
-  },
-
-  search: function(){
-    this.$playlist.children('tbody').remove();
-    var self = this;
-    setTimeout(function(){
-      var list = "<tr " + "data-youtube-id='I67ThDYhk7g'";
-      list += " data-track-index='0'>" + "<td>Honey</td><td>Open Hand</td></tr>";
-
-      list += "<tr " + "data-youtube-id='TkogNHMcXQI'";
-      list += " data-track-index='1'>" + "<td>Crooked crown</td><td>Open Hand</td></tr>";
-
-      list += "<tr " + "data-youtube-id='A_HZqcLylT4'";
-      list += " data-track-index='2'>" + "<td>Life as it is</td><td>Open Hand</td></tr>";
-
-      self.$el.append(list);
-      self.enabled = true;
-    }, 1);
+    "click [data-action=play-song]": "playSong",
+    "click [data-action=load-more]": "loadMore"
   },
 
   clear: function(){
@@ -49,8 +31,8 @@ module.exports = Backbone.View.extend({
 
   loadMore: function(){
     var loader = '<div class="small-loader"></div>';
-    $('#load-more').addClass('hidden');
-    $('#more-loader').append(loader);
+    $('[data-action=load-more]').addClass('hidden');
+    $('[data-id=more-loader]').append(loader);
      this.artistFinder.findSimilar({
        artist: this.artist, page: ++this.page, callback: this.loadedMore });
   },
@@ -115,14 +97,11 @@ module.exports = Backbone.View.extend({
 
   loading: function(loader){
     this.isLoading = true;
-    // Hide load more button
-    // $('#load-more').css('opacity', '0');
-    $('#load-more').addClass('hidden');
-    // $('#playlist table').css('opacity', '0');
+    $('[data-action=load-more]').addClass('hidden');
     $('#playlist table').addClass('hidden');
 
     // Display load spinner
-    var $loader = $('#main-loader');
+    var $loader = $('[data-id=main-loader]');
     $loader.append('<div class="loader"></div>');
   },
 
@@ -134,24 +113,19 @@ module.exports = Backbone.View.extend({
       append("We couldn't find any similar artists.");
     $message.removeClass('hidden');
 
-    $('#main-loader .loader').remove();
+    $('[data-id=main-loader] .loader').remove();
     self.isLoading = false;
   },
 
   loaded: function(self){
-    // $('#load-more').css('opacity', '1');
-    $('#load-more').removeClass('hidden');
-    // $('#playlist table').css('opacity', '1');
+    $('[data-action=load-more]').removeClass('hidden');
     $('#playlist table').removeClass('hidden');
-    $('#main-loader .loader').remove();
+    $('[data-id=main-loader] .loader').remove();
     self.isLoading = false;
   },
 
   loadedMore: function(){
-    $('#more-loader').empty();
-    // $('#load-more').animate({opacity: '1'});
-    $('#load-more').removeClass('hidden');
-
+    $('[data-id=more-loader]').empty();
+    $('[data-action=load-more]').removeClass('hidden');
   }
-
 });

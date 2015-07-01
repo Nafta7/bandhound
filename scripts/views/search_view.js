@@ -11,13 +11,13 @@ module.exports = Backbone.View.extend({
   },
 
   events: {
-    "keyup #search-artist": "keyPressHandler"
+    "keyup [data-action=search-artist]": "keyPressHandler"
   },
 
   keyPressHandler: function(e){
     var self = this;
     if (e.keyCode == 13)
-      this.search(this.$el.children('#search-artist').val());
+      this.search(this.$el.children('[data-action=search-artist]').val());
   },
 
   search: function(artistName){

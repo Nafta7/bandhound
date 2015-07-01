@@ -26,6 +26,7 @@ module.exports = Backbone.Model.extend({
     $.get(url, function(data){
       if (data.items) {
         var attrs = "data-youtube-id='" + data.items[0].id.videoId + "' ";
+        attrs += "data-action='play-song' ";
         attrs += "data-track-index='" + self.index++ + "'";
         var tr = "<tr " + attrs + "><td>" + options.track + "</td>";
         tr += "<td>" + options.artist + "</td></tr>";
