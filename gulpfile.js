@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 plugins.browserSync = require('browser-sync');
 
+var gulpAug = require('gulp-augments')(gulp);
+
 var path = {
   styles    : { src: 'styles/',  dest: 'www/styles/' },
   scripts   : { src: 'scripts/', dest: 'www/scripts/' },
@@ -18,7 +20,7 @@ var tasks = toska.mirror('tasks', gulp, {path: path, $: plugins});
 gulp.task('default', tasks.build);
 
 gulp.task('serve', tasks.build, function(){
-  plugins.browserSync.init({ server: "./www" });
+  plugins.browserSync.init({ server: "./" });
    gulp.watch(path.styles.src + '**/*.sass', ['compile:sass']);
    gulp.watch(path.templates.src + '**/*.jade', ['compile:jade']);
    gulp.watch(path.scripts.src + '**/*.js', ['compile:js']);
