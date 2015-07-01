@@ -10,10 +10,10 @@ Next, open the `credentials.json` and add the api keys.
 
 ## install
 
-Assuming that Node.js is already installed, do the following to download the project:
+This section assumes that Node.js and git are already installed.
 
-```
 1) Clone the repository:
+```
 git clone git://github.com/Nafta7/bandhound.git
 cd bandhound
 ```
