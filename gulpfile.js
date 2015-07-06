@@ -17,17 +17,10 @@ var path = {
 };
 
 var toska = require('toska');
-var tasks = toska('tasks', {gulp: gulp, path: path, $: plugins});
+var modules = toska('tasks', {gulp: gulp, path: path, $: plugins});
 
-var build = Object.keys(tasks.build).map(function(task){
-  gulp.task(task, tasks.build[task]);
-  return task;
-});
-
-var deploy = Object.keys(tasks.deploy).map(function(task){
-  gulp.task(task, tasks.deploy[task]);
-  return task;
-});
+var build = createTasks(modules.build);
+var deploy = createTasks(modules.deploy);
 
 gulp.task('build', build);
 gulp.task('deploy', build.concat(deploy));
@@ -38,3 +31,16 @@ gulp.task('serve', build, function(){
    gulp.watch(path.templates.src + '**/*.jade', ['compile:jade']);
    gulp.watch(path.scripts.src + '**/*.js', ['compile:js']);
 });
+
+function createTasks(obj){
+  return modulus(obj, function(name, func){
+    gulp.task(name, func);
+  });
+}
+
+function modulus(modules, callback){
+  return Object.keys(modules).map(function(name){
+    callback(name, modules[name]);
+    return name;
+  });
+}
