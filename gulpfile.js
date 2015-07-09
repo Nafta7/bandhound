@@ -5,6 +5,8 @@ plugins.browserSync = require('browser-sync');
 plugins.minifycss = require('gulp-minify-css');
 
 var gulpAug = require('gulp-augments')(gulp);
+var modula = require('modula-loader');
+var taska = require('taska');
 
 var path = {
   styles      : { src: 'styles/',            dest: 'www/styles/' },
@@ -16,31 +18,19 @@ var path = {
   }
 };
 
-var modula = require('modula-loader');
-var modules = modula('tasks', {gulp: gulp, path: path, $: plugins});
-
-var build = createTasks(modules.build);
-var deploy = createTasks(modules.deploy);
-
+var modules = modula('tasks', { gulp: gulp, path: path, $: plugins });
+var build  = taska(modules.build,  createTask);
+var deploy = taska(modules.deploy, createTask);
 gulp.task('build', build);
 gulp.task('deploy', build.concat(deploy));
 
 gulp.task('serve', build, function(){
   plugins.browserSync.init({ server: "./" });
-   gulp.watch(path.styles.src + '**/*.sass', ['compile:sass']);
+   gulp.watch(path.styles.src    + '**/*.sass', ['compile:sass']);
    gulp.watch(path.templates.src + '**/*.jade', ['compile:jade']);
-   gulp.watch(path.scripts.src + '**/*.js', ['compile:js']);
+   gulp.watch(path.scripts.src   + '**/*.js',   ['compile:js']);
 });
 
-function createTasks(obj){
-  return modulus(obj, function(name, func){
-    gulp.task(name, func);
-  });
-}
-
-function modulus(modules, callback){
-  return Object.keys(modules).map(function(name){
-    callback(name, modules[name]);
-    return name;
-  });
+function createTask(name, func){
+  gulp.task(name, func);
 }
