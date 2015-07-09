@@ -1,19 +1,19 @@
 .table-playlist
-  color: $white
+  color: palette(white)
   width: 100%
 
   tr
     background: none
     th
-      background: $black-red
+      background: palette(red, dark)
       &:hover
         cursor: auto
 
     &:nth-child(even)
-      background: $dark-red
+      background: palette(red, mid-light)
 
     &:hover, &.current
-      background: $light-red
+      background: palette(red, light)
       cursor: pointer
 
     th, td

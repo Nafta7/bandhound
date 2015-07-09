@@ -1,13 +1,13 @@
 .header
-  background: $darken-red
   padding: 30px 0
   position: fixed
   top: 0
   width: 100%
   z-index: 100
+  background: palette(red)
 
 .preview
-  color: $white
+  color: palette(white)
   position: relative
   top: -20px
   font-size: 45%
@@ -29,7 +29,7 @@
 
   .search-icon
     position: absolute
-    color: $white
+    color: palette(white)
     right: 10px
     top: 19px
 
@@ -50,21 +50,21 @@
     cursor: pointer
 
   input[type="text"]:hover + span
-    color: $gray-light-red
+    color: palette(red, x-light)
 
   input[type="text"]:focus:hover
     border-bottom: 1px solid #BBB
 
   input[type="text"]:focus
     background: white
-    color: $dark-red
+    color: palette(red, dark)
     width: 250px
     z-index: 1
     border-bottom: 1px solid #BBB
     cursor: text
 
   input[type="text"]:focus + .search-icon
-    color: $dark-red
+    color: palette(red, dark)
     z-index: 3
 
   input[type="submit"]
@@ -96,7 +96,7 @@
     input[type="text"]:focus
       width: 450px
       background: none
-      color: $white
+      color: palette(white)
 
     input[type="text"]:focus + .search-icon
-      color: $white
+      color: palette(white)
