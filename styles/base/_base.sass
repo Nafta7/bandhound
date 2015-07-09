@@ -1,6 +1,4 @@
-// @include input-placeholder($dark-red)
 @include input-placeholder($gray-light-red)
-// @media(min-width: $tablet-width)
 
 body, input[type="text"]
   font-family: 'Maven Pro', sans-serif
@@ -61,7 +59,7 @@ img
   box-sizing: border-box
 
 
-@media(min-width: $tablet-width)
+@include respond-to(medium)
   html
     font-size: 120%
   h1

@@ -20,17 +20,17 @@ $pad: 20px
 
 .col-1-2
   width: 90%
-  @media (min-width: $tablet-width)
+  @include respond-to(medium)
     width: 50%
 
 .col-3-4
   width: 100%
-  @media (min-width: $tablet-width)
+  @include respond-to(medium)
     width: 74%
 
 .col-1-4
   width: 100%
-  @media (min-width: $tablet-width)
+  @include respond-to(medium)
     width: 23%
 
 .col-1-5
@@ -40,7 +40,7 @@ $pad: 20px
   width: 11.5%
 
 .grid-gut
-  @media(min-width: $tablet-width)
+  @include respond-to(medium)
     [class*='col-']
       padding-right: $pad
     [class*='col-']:last-of-type
