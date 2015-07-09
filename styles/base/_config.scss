@@ -1,0 +1,55 @@
+// Device dimensions
+
+$breakpoints: (
+  small: (min-width: 767px),
+  medium: (min-width: 992px),
+  large: (min-width: 1200px)
+);
+
+
+// Color and palettes
+
+$color-base-grey: rgb(229,231,234);
+
+$palettes: (
+  red: (
+    base: rgb(130, 0, 40),
+    light: lighten(rgb(130, 0, 40), 15%),
+    mid-light: lighten(rgb(130, 0, 40), 5%),
+    dark: darken(rgb(130, 0, 40), 15%),
+    x-light: lighten(rgb(130, 0, 40), 55%)
+  ),
+
+  white: (
+    base: #fff
+  ),
+
+  black: (
+    base: #000,
+    dark: #EEE
+  ),
+
+  grey: (
+    base: $color-base-grey,
+    light: lighten($color-base-grey, 10%),
+    dark: darken($color-base-grey, 15%)
+  )
+);
+
+
+// Font sizes
+
+$font-size: 16px;
+$h1-size: $font-size * 2;
+$h2-size: $font-size * 1.2;
+
+// UI element dimensions
+
+$player-size: 400px;
+$player-controls-height: 60px;
+
+$playlist-item-pad: 10px;
+
+// defaults
+
+$def-pad: 20px;
