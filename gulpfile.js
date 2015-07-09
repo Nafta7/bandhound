@@ -29,9 +29,9 @@ gulp.task('deploy', build.concat(deploy));
 
 gulp.task('serve', build, function(){
   plugins.browserSync.init({ server: "./" });
-   gulp.watch(path.styles.src    + '**/*.sass', ['compile:sass']);
-   gulp.watch(path.templates.src + '**/*.jade', ['compile:jade']);
-   gulp.watch(path.scripts.src   + '**/*.js',   ['compile:js']);
+  gulp.watch(path.styles.src    + '**/*.{sass,scss}', ['compile:sass']);
+  gulp.watch(path.templates.src + '**/*.{jade}',      ['compile:jade']);
+  gulp.watch(path.scripts.src   + '**/*.{js}',        ['compile:js']);
 });
 
 function createTask(name, func){

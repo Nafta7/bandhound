@@ -1,6 +1,6 @@
 module.exports = function(gulp, path, $){
   return function(){
-    gulp.src(path.styles.src + '**/*.sass')
+    gulp.src(path.styles.src + '**/*.{sass,scss}')
     .pipe($.sourcemaps.init())
     .pipe($.sass())
     .pipe($.sourcemaps.write())
