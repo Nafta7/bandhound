@@ -16,8 +16,8 @@ var path = {
   }
 };
 
-var toska = require('toska');
-var modules = toska('tasks', {gulp: gulp, path: path, $: plugins});
+var modula = require('modula-loader');
+var modules = modula('tasks', {gulp: gulp, path: path, $: plugins});
 
 var build = createTasks(modules.build);
 var deploy = createTasks(modules.deploy);
