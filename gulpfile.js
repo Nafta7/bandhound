@@ -19,6 +19,9 @@ var path = {
 };
 
 var modules = modula('tasks', { gulp: gulp, path: path, $: plugins });
+
+// Creates a task for each module mapped inside modules.build/deploy
+// and returns an array of said modules.
 var build  = taska(modules.build,  createTask);
 var deploy = taska(modules.deploy, createTask);
 gulp.task('build', build);
