@@ -14,7 +14,7 @@ module.exports = Backbone.View.extend({
       playlist: this
     });
     this.$playlist = this.$el.find('table');
-    this.page = 0;
+    this.page = 1;
     this.isLoading = false;
   },
 

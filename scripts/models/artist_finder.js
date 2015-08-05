@@ -16,23 +16,23 @@ module.exports = Backbone.Model.extend({
     var artist;
 
     options.limit = options.limit || 8;
-    options.page  = options.page  || 0;
+    options.page  = options.page  || 1;
 
     /*
     Since the Last.FM API doesn't provide a page parameter for this action,
-    which is, Artist.GetSimilar, we're going to implement a custom pagination
+    which is, Artist.GetSimilar, we're going to implement a custom paginator
     by ourselves.
     */
-    var pageSize = options.page * 5;     // Page size
-    var tail = options.limit + pageSize; // Tail
-    var similar;                         // Stores pagination result
-    var self = this;
+    var tailSize  = (options.page - 1) * options.limit,
+        totalSize = options.page * options.limit,
+        self = this, similar;
+
     this.fm.artist.getSimilar({
       artist: options.artist,
-      limit: tail }, {
+      limit: totalSize }, {
         success: function(data){
           // Pagination of results
-          similar = data.similarartists.artist.slice(pageSize);
+          similar = data.similarartists.artist.slice(tailSize);
 
           if (similar instanceof Array & similar.length > 2) {
             trackFetcher = new TrackFetcher(credentials.youtube);
