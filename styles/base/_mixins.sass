@@ -23,6 +23,5 @@
     @warn "Unfortunately, no value could be retrived from `#{breakpoint}`."
     + "Please make sure it is defined in `$breakpoints` map."
 
-
 @function palette($palette, $tone: 'base')
   @return map-get(map-get($palettes, $palette), $tone)
