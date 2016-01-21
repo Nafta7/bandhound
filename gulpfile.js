@@ -11,7 +11,7 @@ var _ = require('lodash');
 var path = {
   styles      : { src: 'styles/',            dest: 'www/styles/' },
   scripts     : { src: 'scripts/',           dest: 'www/scripts/' },
-  templates   : { src: 'views/',             dest: './' },
+  templates   : { src: 'views/',             dest: 'www/' },
   vendor: {
     scripts   : { src: 'vendor/scripts/',    dest: 'www/scripts/' },
     components: { src: 'vendor/components/', dest: 'www/styles/'}
