@@ -1,4 +1,4 @@
-import fixtureData from '!json!../../test/fixtures/mixtape-data.json'
+import fixtureData from '!json!../../test/fixtures/mixtape-data-one.json'
 import { getSimilarArtists, getSimilarArtistsTopTracks } from './lastfm-api'
 import fetchTopTracks from './youtube-api'
 

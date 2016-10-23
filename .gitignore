@@ -1,2 +1,3 @@
 node_modules/
 dist/
+test/fixtures/mixtape-data-two.json
