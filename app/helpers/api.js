@@ -3,26 +3,32 @@ import { getSimilarArtists, getSimilarArtistsTopTracks } from './lastfm-api'
 import fetchTopTracks from './youtube-api'
 
 const isDev = true
+const timerValue = 500
 
-function getMixtapeFixture(artist) {
+function getMixtapeFixture(artist, page = 1, limit = 2) {
+  let tailSize = (page - 1) * limit
+  let totalSize = page * limit
   var p = new Promise((resolve, reject) => {
-    resolve(fixtureData.data)
+    setTimeout(() => {
+      let data = fixtureData.data.slice(tailSize, totalSize)
+      resolve(data)
+    }, timerValue)
   })
 
   return p
 }
 
-function getMixtapeData(artist){
-  return getSimilarArtists(artist)
+function getMixtapeData(artist, page, limit){
+  return getSimilarArtists(artist, page, limit)
     .then(getSimilarArtistsTopTracks)
     .then(fetchTopTracks)
 }
 
-function getMixtape(artist) {
+function getMixtape(artist, page, limit) {
   if (isDev) {
-    return getMixtapeFixture(artist)
+    return getMixtapeFixture(artist, page, limit)
   } else {
-    return getMixtapeData(artist)
+    return getMixtapeData(artist, page, limit)
   }
 }
 

@@ -4,14 +4,16 @@ import credentials from '!json!../../credentials.json'
 
 const baseUrl = `http://ws.audioscrobbler.com/2.0/?`
 const getSimilarUrl = `${baseUrl}method=artist.getsimilar
-  &api_key=${credentials.lastfm.apiKey}&limit=5&format=json&artist=`
+  &api_key=${credentials.lastfm.apiKey}&format=json`
 const getTopTracksUrl = `${baseUrl}method=artist.gettoptracks
   &api_key=${credentials.lastfm.apiKey}&limit=3&format=json&mbid=`
 
-function getSimilarArtists(artist) {
-  return axios.get(`${getSimilarUrl}${artist}`)
+function getSimilarArtists(artist, page = 1, limit = 2) {
+  let tailSize = (page - 1) * limit
+  let totalSize = page * limit
+  return axios.get(`${getSimilarUrl}&limit=${totalSize}&artist=${artist}`)
     .then(data => {
-      return data.data.similarartists.artist.map(x => x.mbid)
+      return data.data.similarartists.artist.slice(tailSize).map(x => x.mbid)
     })
 }
 
