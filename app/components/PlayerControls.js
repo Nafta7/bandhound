@@ -1,4 +1,5 @@
 import React from 'react'
+const PropTypes = React.PropTypes
 
 const PlayerControls = props => {
   const iconToggle = props.isPlayerVisible ? 'bottom' : 'top'
@@ -8,7 +9,7 @@ const PlayerControls = props => {
     <div id="player-controls">
       <ul id="controls">
         <li>
-          <button className="btn">
+          <button className="btn" onClick={props.handlePreviousClick}>
             <span className="oi" data-glyph="media-step-backward"></span>
           </button>
         </li>
@@ -34,6 +35,15 @@ const PlayerControls = props => {
       </ul>
     </div>
   )
+}
+
+PlayerControls.propTypes = {
+  isPlayerVisible: PropTypes.bool.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
+  handlePlayerToggle: PropTypes.func.isRequired,
+  handlePlayClick: PropTypes.func.isRequired,
+  handleNextClick: PropTypes.func.isRequired,
+  handlePreviousClick: PropTypes.func.isRequired
 }
 
 export default PlayerControls
