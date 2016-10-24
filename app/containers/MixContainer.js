@@ -9,11 +9,11 @@ const MixContainer = React.createClass({
   getInitialState: function(){
     return {
       isLoading: true,
-      artistsData: [],
       isPlayerVisible: false,
       isPlaying: false,
-      player: null,
-      selectedItem: null
+      selectedItem: null,
+      artistsData: [],
+      player: null
     }
   },
 
@@ -31,12 +31,8 @@ const MixContainer = React.createClass({
       })
   },
 
-  handleItemLoad: function(videoId) {
-    this.state.player.loadVideoById(videoId)
-  },
-
-  handleItemClick: function(videoId, index){
-    this.state.player.loadVideoById(videoId)
+  handleItemClick: function(item, index){
+    this.state.player.loadVideoById(item.videoId)
 
     this.setState({
       isPlaying: true,
@@ -45,16 +41,15 @@ const MixContainer = React.createClass({
   },
 
   handlePlayClick: function(){
-    console.log('handle play click!');
-    this.setState({
-      isPlaying: !this.state.isPlaying
-    })
-
     if (this.state.isPlaying) {
       this.state.player.pauseVideo()
     } else {
       this.state.player.playVideo()
     }
+
+    this.setState({
+      isPlaying: !this.state.isPlaying
+    })
   },
 
   handlePlayerToggle: function(){
@@ -64,36 +59,41 @@ const MixContainer = React.createClass({
   },
 
   handleNextClick: function(){
-    this.setState({
-      selectedItem: this.state.selectedItem + 1
-    })
-
-    // console.log(this.state.selectedItem);
+    if (this.state.selectedItem + 1 < this.state.artistsData.length) {
+      this.state.player.loadVideoById(this.state.artistsData[this.state.selectedItem+1])
+      this.setState({
+        selectedItem: this.state.selectedItem + 1
+      })
+    }
   },
 
-  playVideo: function(videoId){
-    this.state.player.loadVideoById(videoId)
-    this.setState({
-      isPlaying: true
-    })
+  handlePreviousClick: function(){
+    if (this.state.selectedItem > 0) {
+      this.state.player.loadVideoById(this.state.artistsData[this.state.selectedItem-1])
+      this.setState({
+        selectedItem: this.state.selectedItem - 1
+      })
+    }
   },
 
   render: function(){
     return (
       <div>
-        <Mix selectedItem={this.state.selectedItem}
-          artist={this.props.routeParams.artist}
+        <Mix
+          selectedItem={this.state.selectedItem}
           isLoading={this.state.isLoading}
+          artist={this.props.routeParams.artist}
           artistsData={this.state.artistsData}
           handleItemClick={this.handleItemClick} />
         <Player
-          active={this.state.isPlayerVisible} />
+          isPlayerVisible={this.state.isPlayerVisible} />
         <PlayerControls
           isPlayerVisible={this.state.isPlayerVisible}
-          handlePlayerToggle={this.handlePlayerToggle}
           isPlaying={this.state.isPlaying}
+          handlePlayerToggle={this.handlePlayerToggle}
           handlePlayClick={this.handlePlayClick}
-          handleNextClick={this.handleNextClick} />
+          handleNextClick={this.handleNextClick}
+          handlePreviousClick={this.handlePreviousClick} />
       </div>
     )
   }

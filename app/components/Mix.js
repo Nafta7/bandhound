@@ -1,9 +1,7 @@
 import React from 'react'
 import Loading from './Loading'
-import Player from './Player'
-import PlayerControls from './PlayerControls'
-import PlayerContainer from '../containers/PlayerContainer'
-import ListItemContainer from '../containers/ListItemContainer'
+import ListItem from '../components/ListItem'
+const PropTypes = React.PropTypes
 
 const Playlist = (props) =>
   <div id="mix">
@@ -22,19 +20,25 @@ const Playlist = (props) =>
           {props.artistsData.map((item, i) => {
             const isSelected = props.selectedItem === i
             return (
-              <ListItemContainer key={i}
-                videoId={item.videoId}
+              <ListItem
+                key={i}
+                active={isSelected}
                 artist={item.artist}
                 track={item.track}
-                handleItemClick={props.handleItemClick}
-                index={i}
-                active={isSelected} />
+                handleItemClick={props.handleItemClick.bind(null, item, i)} />
             )
           })}
         </tbody>
       </table>
     </div>
   </div>
+
+Playlist.propTypes = {
+  selectedItem: PropTypes.number,
+  artist: PropTypes.string.isRequired,
+  artistsData: PropTypes.array.isRequired,
+  handleItemClick: PropTypes.func.isRequired
+}
 
 const Mix = (props) => {
   if (props.isLoading) {
@@ -44,13 +48,22 @@ const Mix = (props) => {
   } else {
     return (
       <div>
-        <Playlist artist={props.artist} selectedItem={props.selectedItem}
+        <Playlist
+          artist={props.artist}
+          selectedItem={props.selectedItem}
           artistsData={props.artistsData}
-          handleTrackClick={props.handleTrackClick}
           handleItemClick={props.handleItemClick} />
       </div>
     )
   }
+}
+
+Mix.propTypes = {
+  artist: PropTypes.string.isRequired,
+  selectedItem: PropTypes.number,
+  isLoading: PropTypes.bool.isRequired,
+  artistsData: PropTypes.array.isRequired,
+  handleItemClick: PropTypes.func.isRequired
 }
 
 export default Mix
