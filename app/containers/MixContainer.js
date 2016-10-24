@@ -4,6 +4,9 @@ import { getMixtape } from '../helpers/api'
 import YoutubePlayer from 'youtube-player'
 import Player from '../components/Player'
 import PlayerControls from '../components/PlayerControls'
+import TrackStatus from '../components/TrackStatus'
+
+const limit = 2
 
 const MixContainer = React.createClass({
   getInitialState: function(){
@@ -16,7 +19,8 @@ const MixContainer = React.createClass({
       reachEnd: null,
       selectedItem: null,
       artistsData: [],
-      player: null
+      player: null,
+      currentTrack: null
     }
   },
 
@@ -25,8 +29,7 @@ const MixContainer = React.createClass({
       player: YoutubePlayer('player')
     })
 
-
-    getMixtape(this.props.routeParams.artist, 1 , 2)
+    getMixtape(this.props.routeParams.artist, 1 , limit)
       .then(data => {
         this.state.player.on('stateChange', (e) => {
           if (e.target.getPlayerState() === 0) {
@@ -46,14 +49,15 @@ const MixContainer = React.createClass({
 
     this.setState({
       isPlaying: true,
-      selectedItem: index
+      selectedItem: index,
+      currentTrack: this.state.artistsData[index]
     })
   },
 
   handleLoadMoreClick: function(){
     if (!this.state.reachEnd) {
 
-      getMixtape(this.props.routeParams.artist, this.state.page + 1, 2)
+      getMixtape(this.props.routeParams.artist, this.state.page + 1, limit)
         .then(data => {
           if (data.length > 0) {
             this.setState({
@@ -97,7 +101,8 @@ const MixContainer = React.createClass({
     if (this.state.selectedItem + 1 < this.state.artistsData.length) {
       this.state.player.loadVideoById(this.state.artistsData[this.state.selectedItem+1])
       this.setState({
-        selectedItem: this.state.selectedItem + 1
+        selectedItem: this.state.selectedItem + 1,
+        currentTrack: this.state.artistsData[this.state.selectedItem + 1]
       })
     }
   },
@@ -106,7 +111,8 @@ const MixContainer = React.createClass({
     if (this.state.selectedItem > 0) {
       this.state.player.loadVideoById(this.state.artistsData[this.state.selectedItem-1])
       this.setState({
-        selectedItem: this.state.selectedItem - 1
+        selectedItem: this.state.selectedItem - 1,
+        currentTrack: this.state.artistsData[this.state.selectedItem - 1]
       })
     }
   },
@@ -131,7 +137,10 @@ const MixContainer = React.createClass({
           handlePlayerToggle={this.handlePlayerToggle}
           handlePlayClick={this.handlePlayClick}
           handleNextClick={this.handleNextClick}
-          handlePreviousClick={this.handlePreviousClick} />
+          handlePreviousClick={this.handlePreviousClick}
+          currentTrack={this.state.currentTrack}>
+          <TrackStatus currentTrack={this.state.currentTrack} />
+        </PlayerControls>
       </div>
     )
   }

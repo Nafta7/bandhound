@@ -28,10 +28,8 @@ const PlayerControls = props => {
             <span className="oi" data-glyph={`chevron-${iconToggle}`}></span>
           </button>
         </li>
-        <li id="now-playing">
-          <span id="track"></span><br />
-          <span id="artist"></span>
-        </li>
+        {props.children}
+
       </ul>
     </div>
   )
