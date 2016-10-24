@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "production": "NODE_ENV=production && webpack -p",
-    "serve": "webpack -p --json | webpack-bundle-size-analyzer",
+    "stats": "webpack -p --json | webpack-bundle-size-analyzer",
     "start": "webpack-dev-server --inline -d"
   },
   "repository": {
