@@ -1,6 +1,7 @@
 import React from 'react'
 import Loading from './Loading'
-import ListItem from '../components/ListItem'
+import ListItem from './ListItem'
+import MoreButton from './MoreButton'
 const PropTypes = React.PropTypes
 
 const Playlist = (props) =>
@@ -43,7 +44,7 @@ Playlist.propTypes = {
 const Mix = (props) => {
   if (props.isLoading) {
     return (
-      <Loading />
+      <Loading main={true} />
     )
   } else {
     return (
@@ -53,6 +54,9 @@ const Mix = (props) => {
           selectedItem={props.selectedItem}
           artistsData={props.artistsData}
           handleItemClick={props.handleItemClick} />
+        <MoreButton reachEnd={props.reachEnd}
+          isLoading={props.isLoadingMore}
+          handleLoadMoreClick={props.handleLoadMoreClick} />
       </div>
     )
   }
@@ -63,7 +67,8 @@ Mix.propTypes = {
   selectedItem: PropTypes.number,
   isLoading: PropTypes.bool.isRequired,
   artistsData: PropTypes.array.isRequired,
-  handleItemClick: PropTypes.func.isRequired
+  handleItemClick: PropTypes.func.isRequired,
+  handleLoadMoreClick: PropTypes.func.isRequired
 }
 
 export default Mix
