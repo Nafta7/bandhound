@@ -6,7 +6,7 @@ import Player from '../components/Player'
 import PlayerControls from '../components/PlayerControls'
 import TrackStatus from '../components/TrackStatus'
 
-const limit = 2
+const limit = 10
 
 const MixContainer = React.createClass({
   getInitialState: function(){
@@ -49,7 +49,7 @@ const MixContainer = React.createClass({
         })
         this.setState({
           isLoading: false,
-          artistsData: data,
+          artistsData: data.filter(x => x),
           page: 1
         })
       })
@@ -148,8 +148,7 @@ const MixContainer = React.createClass({
           handlePlayerToggle={this.handlePlayerToggle}
           handlePlayClick={this.handlePlayClick}
           handleNextClick={this.handleNextClick}
-          handlePreviousClick={this.handlePreviousClick}
-          currentTrack={this.state.currentTrack}>
+          handlePreviousClick={this.handlePreviousClick} >
           <TrackStatus currentTrack={this.state.currentTrack} />
         </PlayerControls>
       </div>

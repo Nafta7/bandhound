@@ -54,8 +54,8 @@ const GetArtist = props => {
 
 GetArtist.propTypes = {
   artist: PropTypes.string.isRequired,
-  handleSubmitArtist: PropTypes.func.isRequired,
-  handleUpdateArtist: PropTypes.func.isRequired
+  onSubmitArtist: PropTypes.func.isRequired,
+  onUpdateArtist: PropTypes.func.isRequired
 }
 
 export default GetArtist
