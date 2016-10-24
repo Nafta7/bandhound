@@ -1,13 +1,11 @@
 {
   "name": "bandhound",
-  "private": true,
-  "version": "0.0.1",
   "description": "Music discovery webapp",
-  "main": "gulpfile.js",
+  "author": "Nafta",
+  "private": true,
   "dependencies": {
     "axios": "^0.15.2",
     "font-awesome": "^4.6.3",
-    "open-iconic": "^1.1.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-router": "^2.8.1",
@@ -17,20 +15,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "production": "NODE_ENV=production && webpack -p",
     "stats": "webpack -p --json | webpack-bundle-size-analyzer",
-    "start": "webpack-dev-server --inline -d"
+    "start": "webpack-dev-server --inline -d",
+    "site:push": "gh-pages -d dist",
+    "site:deploy": "npm run production && npm run site:push"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Nafta7/bandhound.git"
-  },
-  "keywords": [
-    "music"
-  ],
-  "engines": {
-    "node": "0.12"
-  },
-  "author": "Nafta",
-  "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
@@ -40,6 +28,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "font-awesome-sass-loader": "^1.0.2",
+    "gh-pages": "^0.11.0",
     "html-webpack-plugin": "^2.22.0",
     "json-loader": "^0.5.4",
     "node-sass": "^3.10.1",
