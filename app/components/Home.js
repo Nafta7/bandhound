@@ -1,4 +1,5 @@
 import React from 'react'
+const PropTypes = React.PropTypes
 
 const Home = (props) =>
   <div id="main">
@@ -13,12 +14,17 @@ const Home = (props) =>
           placeholder="Type an artist you like"
           onChange={props.handleInputChange} />
         <label>
-          <input type="button" className="main-search-submit" />
+          <button type="submit" className="main-search-submit"  />
           <span id="search_submit" className="oi main-search-icon"
             data-glyph="magnifying-glass"></span>
         </label>
       </form>
     </div>
   </div>
+
+Home.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  handleInputChange: PropTypes.func.isRequired
+}
 
 export default Home
