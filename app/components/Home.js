@@ -15,8 +15,10 @@ const Home = (props) =>
           onChange={props.handleInputChange} />
         <label>
           <button type="submit" className="main-search-submit"  />
-          <span id="search_submit" className="oi main-search-icon"
-            data-glyph="magnifying-glass"></span>
+          <span className="main-search-icon">
+
+          <i className="fa fa-search"></i>
+          </span>
         </label>
       </form>
     </div>

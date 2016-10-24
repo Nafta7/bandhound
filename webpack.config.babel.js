@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const isDev = process.argv.indexOf('-p') === -1
 const path = require('path')
 
@@ -20,6 +21,7 @@ const htmlConfig = new HtmlWpp({
 })
 
 module.exports = {
+  devtool: 'source-map',
   entry: [
     './app/index.js'
   ],
@@ -44,9 +46,17 @@ module.exports = {
       {
         test: /\.json$/,
         loader: 'json-loader'
-      }
+      },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
     ]
   },
-  devtool: 'inline-source-map',
-  plugins: [htmlConfig, extractCSS]
+  plugins: [new webpack.DefinePlugin({
+    'process.env': {
+      // This has effect on the react lib size
+      'NODE_ENV': JSON.stringify('production'),
+    }
+  }), new webpack.optimize.OccurenceOrderPlugin(), htmlConfig, extractCSS, isDev? [] : new webpack.optimize.UglifyJsPlugin({
+    minimize: true
+    })]
 }

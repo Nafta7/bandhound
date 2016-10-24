@@ -2,7 +2,7 @@ import React from 'react'
 const PropTypes = React.PropTypes
 
 const PlayerControls = props => {
-  const iconToggle = props.isPlayerVisible ? 'bottom' : 'top'
+  const iconToggle = props.isPlayerVisible ? 'down' : 'up'
   const iconPlay = props.isPlaying ? 'pause' : 'play'
 
   return (
@@ -10,22 +10,23 @@ const PlayerControls = props => {
       <ul id="controls">
         <li>
           <button className="btn" onClick={props.handlePreviousClick}>
-            <span className="oi" data-glyph="media-step-backward"></span>
+            <i className="fa fa-backward" aria-hidden="true"></i>
           </button>
         </li>
         <li>
           <button className="btn" onClick={props.handlePlayClick}>
-            <span className="oi" data-glyph={`media-${iconPlay}`}></span>
+            <i className={`fa fa-${iconPlay}`} aria-hidden="true"></i>
+
           </button>
         </li>
         <li>
           <button className="btn" onClick={props.handleNextClick}>
-            <span className="oi" data-glyph="media-step-forward"></span>
+            <i className="fa fa-forward" aria-hidden="true"></i>
           </button>
         </li>
         <li>
           <button className="btn toggle-player" onClick={props.handlePlayerToggle}>
-            <span className="oi" data-glyph={`chevron-${iconToggle}`}></span>
+            <i className={`fa fa-chevron-${iconToggle}`} aria-hidden="true"></i>
           </button>
         </li>
         {props.children}

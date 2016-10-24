@@ -1,18 +1,15 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 const Header = (props) =>
   <div className="header">
     <div className="container">
       <div id="logo">
-        <a href="/">bandhound</a>
+        <Link to="/">bandhound</Link>
       </div>
       <form id="search">
         <input type="text" placeholder="Search artist" />
-        <span
-          id="search_submit"
-          className="oi search-icon"
-          data-glyph="magnifying-glass">
-        </span>
+        <i className="fa fa-search search-icon" ></i>
       </form>
     </div>
   </div>
