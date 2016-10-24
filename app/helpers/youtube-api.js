@@ -29,7 +29,11 @@ function fetchTrack(options) {
 
 function fetchTopTracks(topTracksData){
   return axios.all(topTracksData.map(item => {
-    return fetchTrack({artist: item[0].artist.name, track: item[0].name })
+    if (item)
+      return fetchTrack({artist: item[0].artist.name, track: item[0].name })
+    else
+      return null
+    
   }))
 }
 

@@ -20,7 +20,10 @@ function getSimilarArtists(artist, page = 1, limit = 2) {
 function getTopTracks(mbid) {
   return axios.get(`${getTopTracksUrl}${mbid}`)
     .then(data => {
-      return data.data.toptracks.track
+      if (data.data.error)
+        return null
+      else
+        return data.data.toptracks.track
     })
 }
 

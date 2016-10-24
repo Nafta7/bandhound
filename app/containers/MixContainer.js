@@ -40,7 +40,7 @@ const MixContainer = React.createClass({
   },
 
   makeRequest: function(artist){
-    getMixtape(this.props.routeParams.artist, 1 , limit)
+    getMixtape(artist, 1, limit)
       .then(data => {
         this.state.player.on('stateChange', (e) => {
           if (e.target.getPlayerState() === 0) {
@@ -73,7 +73,7 @@ const MixContainer = React.createClass({
           if (data.length > 0) {
             this.setState({
               isLoadingMore: false,
-              artistsData: this.state.artistsData.concat(data)
+              artistsData: this.state.artistsData.concat(data.filter(x => x))
             })
           } else {
             this.setState({
