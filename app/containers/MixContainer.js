@@ -9,8 +9,11 @@ const MixContainer = React.createClass({
   getInitialState: function(){
     return {
       isLoading: true,
+      isLoadingMore: false,
       isPlayerVisible: false,
       isPlaying: false,
+      page: null,
+      reachEnd: null,
       selectedItem: null,
       artistsData: [],
       player: null
@@ -22,11 +25,18 @@ const MixContainer = React.createClass({
       player: YoutubePlayer('player')
     })
 
-    getMixtape(this.props.routeParams.artist)
+
+    getMixtape(this.props.routeParams.artist, 1 , 2)
       .then(data => {
+        this.state.player.on('stateChange', (e) => {
+          if (e.target.getPlayerState() === 0) {
+            this.handleNextClick()
+          }
+        })
         this.setState({
           isLoading: false,
-          artistsData: data
+          artistsData: data,
+          page: 1
         })
       })
   },
@@ -38,6 +48,31 @@ const MixContainer = React.createClass({
       isPlaying: true,
       selectedItem: index
     })
+  },
+
+  handleLoadMoreClick: function(){
+    if (!this.state.reachEnd) {
+
+      getMixtape(this.props.routeParams.artist, this.state.page + 1, 2)
+        .then(data => {
+          if (data.length > 0) {
+            this.setState({
+              isLoadingMore: false,
+              artistsData: this.state.artistsData.concat(data)
+            })
+          } else {
+            this.setState({
+              reachEnd: true,
+              isLoadingMore: false
+            })
+          }
+        })
+
+      this.setState({
+        isLoadingMore: true,
+        page: this.state.page + 1
+      })
+    }
   },
 
   handlePlayClick: function(){
@@ -82,9 +117,12 @@ const MixContainer = React.createClass({
         <Mix
           selectedItem={this.state.selectedItem}
           isLoading={this.state.isLoading}
+          isLoadingMore={this.state.isLoadingMore}
+          reachEnd={this.state.reachEnd}
           artist={this.props.routeParams.artist}
           artistsData={this.state.artistsData}
-          handleItemClick={this.handleItemClick} />
+          handleItemClick={this.handleItemClick}
+          handleLoadMoreClick={this.handleLoadMoreClick} />
         <Player
           isPlayerVisible={this.state.isPlayerVisible} />
         <PlayerControls
