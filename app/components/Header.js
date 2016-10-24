@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import GetArtistContainer from '../containers/GetArtistContainer'
 
 const Header = (props) =>
   <div className="header">
@@ -7,10 +8,7 @@ const Header = (props) =>
       <div id="logo">
         <Link to="/">bandhound</Link>
       </div>
-      <form id="search">
-        <input type="text" placeholder="Search artist" />
-        <i className="fa fa-search search-icon" ></i>
-      </form>
+      <GetArtistContainer type="header" />
     </div>
   </div>
 

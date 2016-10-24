@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import Home from '../components/Home'
 
 const Main = React.createClass({
+  
   render: function(){
     return (
       <div>

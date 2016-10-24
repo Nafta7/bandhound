@@ -29,6 +29,17 @@ const MixContainer = React.createClass({
       player: YoutubePlayer('player')
     })
 
+    this.makeRequest(this.props.routeParams.artist)
+  },
+
+  componentWillReceiveProps: function(nextProps){
+    this.setState({
+      isLoading: true
+    })
+    this.makeRequest(nextProps.routeParams.artist)
+  },
+
+  makeRequest: function(artist){
     getMixtape(this.props.routeParams.artist, 1 , limit)
       .then(data => {
         this.state.player.on('stateChange', (e) => {

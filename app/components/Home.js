@@ -1,4 +1,5 @@
 import React from 'react'
+import GetArtistContainer from '../containers/GetArtistContainer'
 const PropTypes = React.PropTypes
 
 const Home = (props) =>
@@ -9,18 +10,7 @@ const Home = (props) =>
       <h1 className="main-heading">
         Meet your next favorite song.
       </h1>
-      <form className="main-search" onSubmit={props.handleSubmit}>
-        <input type="text" className="main-search-input"
-          placeholder="Type an artist you like"
-          onChange={props.handleInputChange} />
-        <label>
-          <button type="submit" className="main-search-submit"  />
-          <span className="main-search-icon">
-
-          <i className="fa fa-search"></i>
-          </span>
-        </label>
-      </form>
+      <GetArtistContainer type="main" />
     </div>
   </div>
 
