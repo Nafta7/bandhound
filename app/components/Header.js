@@ -8,7 +8,11 @@ const Header = (props) =>
       </div>
       <form id="search">
         <input type="text" placeholder="Search artist" />
-        <span id="search_submit" className="oi search-icon" data-glyph="magnifying-glass"></span>
+        <span
+          id="search_submit"
+          className="oi search-icon"
+          data-glyph="magnifying-glass">
+        </span>
       </form>
     </div>
   </div>
