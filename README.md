@@ -1,12 +1,17 @@
 # bandhound
 
-bandhound is a music discovery webapp that aims to help people discover  artists similar to the ones they already love.
+bandhound is a music discovery webapp that aims to help people discover
+artists similar to the ones they already love.
 
 ## credentials
 
-Before anything you will need to request two API keys, one from Youtube and another from Last.fm. The Last.fm key should be pretty straightforward to get, however, for the Youtube api key will you also need to register your application in order to use it.
+Before anything you will need to request two API keys, one from Youtube and
+another from Last.fm. The Last.fm key should be pretty straightforward to get,
+however, for the Youtube api key will you also need to register your
+application in order to use it.
 
-You can follow [these instructions](https://developers.google.com/youtube/registering_an_application) in case you have problems setting up your application.
+You can follow [these instructions](https://developers.google.com/youtube/registering_an_application)
+in case you have problems setting up your application.
 
 Next, open the `credentials.json` and add the api keys.
 
@@ -23,7 +28,7 @@ cd bandhound
 ```
 npm install
 ```
-3) Build with gulp:
+3) Run start:
 ```
-gulp serve
+npm run start
 ```
