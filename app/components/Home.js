@@ -14,9 +14,4 @@ const Home = (props) =>
     </div>
   </div>
 
-Home.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  handleInputChange: PropTypes.func.isRequired
-}
-
 export default Home
