@@ -10,18 +10,22 @@ const getTopTracksUrl = `${baseUrl}method=artist.gettoptracks
 function getSimilarArtists(artist, page = 1, limit = 2) {
   let tailSize = (page - 1) * limit
   let totalSize = page * limit
+  let similar
   return axios.get(`${getSimilarUrl}&limit=${totalSize}&artist=${artist}`)
     .then(data => {
-      return data.data.similarartists.artist.slice(tailSize).map(x => x.mbid)
+      similar = data.data.similarartists.artist.slice(tailSize).map(artistData =>  {
+        if (artistData.mbid) {
+          return artistData.mbid
+        }
+      })
+      return similar.filter(x => x)
     })
 }
 
 function getTopTracks(mbid) {
   return axios.get(`${getTopTracksUrl}${mbid}`)
     .then(data => {
-      if (data.data.error)
-        return null
-      else
+      if (!data.data.error)
         return data.data.toptracks.track
     })
 }

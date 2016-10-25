@@ -5,8 +5,7 @@ import YoutubePlayer from 'youtube-player'
 import Player from '../components/Player'
 import PlayerControls from '../components/PlayerControls'
 import TrackStatus from '../components/TrackStatus'
-
-const limit = 2
+import Constants from '../constants/Constants'
 
 const MixContainer = React.createClass({
   getInitialState: function(){
@@ -25,7 +24,6 @@ const MixContainer = React.createClass({
   },
 
   componentDidMount: function(){
-
     this.setState({
       player: YoutubePlayer('player')
     }, () => {
@@ -51,11 +49,11 @@ const MixContainer = React.createClass({
       reachEnd: null
     })
 
-    getMixtape(artist, 1, limit)
+    getMixtape(artist, 1, Constants.LIMIT)
       .then(data => {
         this.setState({
           isLoading: false,
-          artistsData: data.filter(x => x),
+          artistsData: data,
           page: 1
         })
       })
@@ -74,12 +72,12 @@ const MixContainer = React.createClass({
   handleLoadMoreClick: function(){
     if (!this.state.reachEnd) {
 
-      getMixtape(this.props.routeParams.artist, this.state.page + 1, limit)
+      getMixtape(this.props.routeParams.artist, this.state.page + 1, Constants.LIMIT)
         .then(data => {
           if (data.length > 0) {
             this.setState({
               isLoadingMore: false,
-              artistsData: this.state.artistsData.concat(data.filter(x => x))
+              artistsData: this.state.artistsData.concat(data)
             })
           } else {
             this.setState({

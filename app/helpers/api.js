@@ -1,9 +1,7 @@
 import fixtureData from '!json!../../test/fixtures/mixtape-data-one.json'
 import { getSimilarArtists, getSimilarArtistsTopTracks } from './lastfm-api'
 import fetchTopTracks from './youtube-api'
-
-const isDev = true
-const timerValue = 500
+import Constants from '../constants/Constants'
 
 function getMixtapeFixture(artist, page = 1, limit = 2) {
   let tailSize = (page - 1) * limit
@@ -12,7 +10,7 @@ function getMixtapeFixture(artist, page = 1, limit = 2) {
     setTimeout(() => {
       let data = fixtureData.data.slice(tailSize, totalSize)
       resolve(data)
-    }, timerValue)
+    }, Constants.DEV_TIMER)
   })
 
   return p
@@ -25,7 +23,7 @@ function getMixtapeData(artist, page, limit){
 }
 
 function getMixtape(artist, page, limit) {
-  if (isDev) {
+  if (Constants.DEV_MODE) {
     return getMixtapeFixture(artist, page, limit)
   } else {
     return getMixtapeData(artist, page, limit)
