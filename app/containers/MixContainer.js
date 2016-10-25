@@ -6,7 +6,7 @@ import Player from '../components/Player'
 import PlayerControls from '../components/PlayerControls'
 import TrackStatus from '../components/TrackStatus'
 
-const limit = 10
+const limit = 2
 
 const MixContainer = React.createClass({
   getInitialState: function(){
@@ -25,28 +25,34 @@ const MixContainer = React.createClass({
   },
 
   componentDidMount: function(){
+
     this.setState({
       player: YoutubePlayer('player')
+    }, () => {
+      this.state.player.on('stateChange', (e) => {
+        if (e.target.getPlayerState() === 0) {
+          this.handleNextClick()
+        }
+      })
     })
 
     this.makeRequest(this.props.routeParams.artist)
   },
 
   componentWillReceiveProps: function(nextProps){
-    this.setState({
-      isLoading: true
-    })
     this.makeRequest(nextProps.routeParams.artist)
   },
 
   makeRequest: function(artist){
+    this.setState({
+      isLoading: true,
+      selectedItem: null,
+      currentTrack: null,
+      reachEnd: null
+    })
+
     getMixtape(artist, 1, limit)
       .then(data => {
-        this.state.player.on('stateChange', (e) => {
-          if (e.target.getPlayerState() === 0) {
-            this.handleNextClick()
-          }
-        })
         this.setState({
           isLoading: false,
           artistsData: data.filter(x => x),
@@ -108,8 +114,32 @@ const MixContainer = React.createClass({
     })
   },
 
+  hasTrackSelected: function(){
+    if (this.state.selectedItem === null)
+      return false
+    return this.state.selectedItem >= 0
+      && this.state.selectedItem < this.state.artistsData.length
+      ? true
+      : false
+  },
+
+  canChangeTrack: function(type){
+    if (type === 'next') {
+      if (this.hasTrackSelected()) {
+        if (this.state.selectedItem + 1 < this.state.artistsData.length)
+          return true
+      }
+    } else if (type === 'previous') {
+      if (this.hasTrackSelected()) {
+        if (this.state.selectedItem > 0)
+        return true
+      }
+    }
+    return false
+  },
+
   handleNextClick: function(){
-    if (this.state.selectedItem + 1 < this.state.artistsData.length) {
+    if (this.canChangeTrack('next')) {
       this.state.player.loadVideoById(this.state.artistsData[this.state.selectedItem+1])
       this.setState({
         selectedItem: this.state.selectedItem + 1,
@@ -119,7 +149,7 @@ const MixContainer = React.createClass({
   },
 
   handlePreviousClick: function(){
-    if (this.state.selectedItem > 0) {
+    if (this.canChangeTrack('previous')) {
       this.state.player.loadVideoById(this.state.artistsData[this.state.selectedItem-1])
       this.setState({
         selectedItem: this.state.selectedItem - 1,
