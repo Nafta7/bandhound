@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Router, Route, IndexRoute, hashHistory} from 'react-router'
-import Main from '../containers/Main'
+import Main from '../components/Main'
 import Home from '../components/Home'
 import DiscoveryContainer from '../containers/DiscoveryContainer'
 
