@@ -36,16 +36,17 @@ let pluginOccurenceOrder = new webpack.optimize.OccurenceOrderPlugin()
 let pluginUglify = new webpack.optimize.UglifyJsPlugin({
     compress: { warnings: false }
   })
-plugins.push(pluginProduction)
-plugins.push(pluginOccurenceOrder)
 plugins.push(pluginHTMLWebpack)
 plugins.push(pluginExtractCSS)
+
 if (!isDev) {
+  plugins.push(pluginProduction)
+  plugins.push(pluginOccurenceOrder)
   plugins.push(pluginUglify)
 }
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: isDev? 'source-map' : '',
   entry: [
     './app/index.js'
   ],
