@@ -18,41 +18,66 @@ const Button = props => {
     </button>
   )
 }
-// TODO: Refactor into two separated components
+
+const GetArtistMain = props =>
+  <form onSubmit={props.onSubmitArtist}>
+    <Input inputClass='main-search-input'
+      onUpdateArtist={props.onUpdateArtist}
+      artist={props.artist} />
+    <label>
+      <Button buttonClass='main-search-submit' />
+      <span className="main-search-icon">
+        <i className="fa fa-search"></i>
+      </span>
+    </label>
+  </form>
+
+const GetArtistHeader = props =>
+  <form id="search" onSubmit={props.onSubmitArtist}>
+    <Input
+      onUpdateArtist={props.onUpdateArtist}
+      artist={props.artist} />
+    <label>
+      <Button />
+      <span className="search-icon">
+        <i className="fa fa-search"></i>
+      </span>
+    </label>
+  </form>
+
+
 const GetArtist = props => {
   if (props.type === 'main') {
     return (
-      <form onSubmit={props.onSubmitArtist}>
-        <Input inputClass='main-search-input'
-          onUpdateArtist={props.onUpdateArtist}
-          artist={props.artist} />
-        <label>
-          <Button buttonClass='main-search-submit' />
-          <span className="main-search-icon">
-            <i className="fa fa-search"></i>
-          </span>
-        </label>
-      </form>
+      <GetArtistMain
+        artist={props.artist}
+        onSubmitArtist={props.onSubmitArtist}
+        onUpdateArtist={props.onUpdateArtist} />
     )
-  } else if (props.type === 'header') {
-
+  }
+  else if (props.type === 'header') {
     return (
-      <form id="search" onSubmit={props.onSubmitArtist}>
-        <Input
-          onUpdateArtist={props.onUpdateArtist}
-          artist={props.artist} />
-        <label>
-          <Button />
-          <span className="search-icon">
-            <i className="fa fa-search"></i>
-          </span>
-        </label>
-      </form>
+      <GetArtistHeader
+        artist={props.artist}
+        onSubmitArtist={props.onSubmitArtist}
+        onUpdateArtist={props.onUpdateArtist} />
     )
   }
 }
 
 GetArtist.propTypes = {
+  artist: PropTypes.string.isRequired,
+  onSubmitArtist: PropTypes.func.isRequired,
+  onUpdateArtist: PropTypes.func.isRequired
+}
+
+GetArtistHeader.propTypes = {
+  artist: PropTypes.string.isRequired,
+  onSubmitArtist: PropTypes.func.isRequired,
+  onUpdateArtist: PropTypes.func.isRequired
+}
+
+GetArtistMain.propTypes = {
   artist: PropTypes.string.isRequired,
   onSubmitArtist: PropTypes.func.isRequired,
   onUpdateArtist: PropTypes.func.isRequired
