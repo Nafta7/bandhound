@@ -1,5 +1,4 @@
 import axios from 'axios'
-import fetchTopTracks from './youtube-api'
 import credentials from '!json!../../credentials.json'
 
 const baseUrl = `http://ws.audioscrobbler.com/2.0/?`
