@@ -1,5 +1,5 @@
 import React from 'react'
-import Mix from '../components/Mix'
+import Discovery from '../components/Discovery'
 import { getMixtape } from '../helpers/api'
 import YoutubePlayer from 'youtube-player'
 import Player from '../components/Player'
@@ -7,7 +7,7 @@ import PlayerControls from '../components/PlayerControls'
 import TrackStatus from '../components/TrackStatus'
 import Constants from '../constants/Constants'
 
-const MixContainer = React.createClass({
+const DiscoveryContainer = React.createClass({
   getInitialState: function(){
     return {
       isLoading: true,
@@ -159,7 +159,7 @@ const MixContainer = React.createClass({
   render: function(){
     return (
       <div>
-        <Mix
+        <Discovery
           selectedItem={this.state.selectedItem}
           isLoading={this.state.isLoading}
           isLoadingMore={this.state.isLoadingMore}
@@ -184,4 +184,4 @@ const MixContainer = React.createClass({
   }
 })
 
-export default MixContainer
+export default DiscoveryContainer

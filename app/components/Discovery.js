@@ -41,7 +41,7 @@ Playlist.propTypes = {
   handleItemClick: PropTypes.func.isRequired
 }
 
-const Mix = (props) => {
+const Discovery = (props) => {
   if (props.isLoading) {
     return (
       <Loading main={true} />
@@ -62,7 +62,7 @@ const Mix = (props) => {
   }
 }
 
-Mix.propTypes = {
+Discovery.propTypes = {
   artist: PropTypes.string.isRequired,
   selectedItem: PropTypes.number,
   isLoading: PropTypes.bool.isRequired,
@@ -71,4 +71,4 @@ Mix.propTypes = {
   handleLoadMoreClick: PropTypes.func.isRequired
 }
 
-export default Mix
+export default Discovery

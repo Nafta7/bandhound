@@ -25,7 +25,7 @@ const GetArtistContainer = React.createClass({
 
   handleSubmitArtist: function(e){
     e.preventDefault()
-    this.context.router.push(`/mix/${this.state.artist}`)
+    this.context.router.push(`/discovery/${this.state.artist}`)
   },
 
   handleUpdateArtist: function(e){
