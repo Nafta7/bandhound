@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Split api code w/ fixture data
+- [x] Split api code w/ fixture data
 
 - [ ] Improve mobile UI.
 

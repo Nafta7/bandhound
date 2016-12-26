@@ -1,11 +1,20 @@
 import React from 'react'
 import Discovery from '../components/Discovery'
-import { getMixtape } from '../helpers/api'
 import YoutubePlayer from 'youtube-player'
 import Player from '../components/Player'
 import PlayerControls from '../components/PlayerControls'
 import TrackStatus from '../components/TrackStatus'
 import Constants from '../constants/Constants'
+import AppMode from '../constants/AppMode'
+let getMixtape
+const config = require('../../appconfig')
+
+if (config.mode === AppMode.DEVELOPMENT)
+{
+  getMixtape = require('../../test/api-fixture').getMixtape
+} else {
+  getMixtape = require('../helpers/api').getMixtape
+}
 
 const DiscoveryContainer = React.createClass({
   getInitialState: function(){

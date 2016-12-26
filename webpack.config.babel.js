@@ -1,11 +1,13 @@
 const webpack = require('webpack')
 const isDev = process.argv.indexOf('-p') === -1
+const isDebug = false
 // const isDev = process.env.NODE_ENV !== 'production'
 const path = require('path')
 
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const pluginExtractCSS = new ExtractTextPlugin('site.css', {disable: isDev})
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const sassLoader = [
   'css'+(isDev? '?sourceMap=true': ''),
@@ -43,6 +45,10 @@ if (!isDev) {
   plugins.push(pluginProduction)
   plugins.push(pluginOccurenceOrder)
   plugins.push(pluginUglify)
+} 
+
+if (isDebug) {
+ plugins.push(new BundleAnalyzerPlugin())
 }
 
 module.exports = {
