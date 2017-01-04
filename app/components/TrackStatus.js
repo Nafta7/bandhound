@@ -10,9 +10,9 @@ const TrackStatus = props => {
     ? artist.substring(0, 30) + '...'
     : artist
     return (
-    <li id="now-playing">
-      <span id="track">{track}</span><br />
-      <span id="artist">{artist}</span>
+    <li className="now-playing">
+      <span className="playing-track">{track}</span><br />
+      <span className="playing-artist">{artist}</span>
     </li>
   )
 }

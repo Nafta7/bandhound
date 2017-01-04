@@ -6,31 +6,32 @@ const PlayerControls = props => {
   const iconPlay = props.isPlaying ? 'pause' : 'play'
 
   return (
-    <div id="player-controls">
-      <ul id="controls">
+    <div className="player-controls">
+      <ul className="controls">
         <li>
-          <button className="btn" onClick={props.handlePreviousClick}>
+          <button className="control" onClick={props.handlePreviousClick}>
             <i className="fa fa-backward" aria-hidden="true"></i>
           </button>
         </li>
         <li>
-          <button className="btn" onClick={props.handlePlayClick}>
+          <button className="control" onClick={props.handlePlayClick}>
             <i className={`fa fa-${iconPlay}`} aria-hidden="true"></i>
 
           </button>
         </li>
         <li>
-          <button className="btn" onClick={props.handleNextClick}>
+          <button className="control" onClick={props.handleNextClick}>
             <i className="fa fa-forward" aria-hidden="true"></i>
           </button>
         </li>
+      </ul>
+      <ul className="controls-aside">
+        {props.children}
         <li>
-          <button className="btn toggle-player" onClick={props.handlePlayerToggle}>
+          <button className="control toggle-player" onClick={props.handlePlayerToggle}>
             <i className={`fa fa-chevron-${iconToggle}`} aria-hidden="true"></i>
           </button>
         </li>
-        {props.children}
-
       </ul>
     </div>
   )

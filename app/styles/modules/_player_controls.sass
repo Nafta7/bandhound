@@ -1,26 +1,39 @@
-#player-controls
+.player-controls
+  display: flex
+  justify-content: space-between
+  align-items: center
   position: fixed
   bottom: 0
   font-weight: 100
+  height: $player-controls-height
   left: 0
   width: 100%
-  height: $player-controls-height
-  font-size: 150%
   background: palette(red, dark)
   padding: 0 30px
-  padding-top: 10px
+  padding-top: 5px
 
-.toggle-player
-  float: right
-  position: relative
-  top: -7px
-  top: 0
+.control
+  font-size: 2em
+  transition: color 0.2s ease-out
 
-#now-playing
+  &:hover
+    cursor: pointer
+    color: palette(red, x-light)
+
+.controls .control
+  margin-right: 1em
+  padding: 20px
+  margin-left: -10px
+
+.now-playing
+  display: inline-block
   color: #ccc
-  float: right
-  font-size: 50%
-  padding: 10px
+  font-size: 1em
+  padding-right: 10px
 
-  #artist
+  .playing-artist
     color: palette(white)
+
+.toggle-control
+  padding: 20px
+  margin-right: -10px
