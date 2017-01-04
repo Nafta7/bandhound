@@ -8,6 +8,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const pluginExtractCSS = new ExtractTextPlugin('site.css', {disable: isDev})
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 const sassLoader = [
   'css'+(isDev? '?sourceMap=true': ''),
@@ -37,15 +38,35 @@ let pluginOccurenceOrder = new webpack.optimize.OccurenceOrderPlugin()
 
 let pluginUglify = new webpack.optimize.UglifyJsPlugin({
     compress: { warnings: false }
-  })
+})
+
+let pluginBrowserSync = new BrowserSyncPlugin(
+      // BrowserSync options
+      {
+        // browse to http://localhost:3000/ during development
+        host: 'localhost',
+        port: 3000,
+        // proxy the Webpack Dev Server endpoint
+        // (which should be serving on http://localhost:3100/)
+        // through BrowserSync
+        proxy: 'http://localhost:8080/'
+      },
+      // plugin options
+      {
+        // prevent BrowserSync from reloading the page
+        // and let Webpack Dev Server take care of this
+        reload: false
+      }
+    )
 plugins.push(pluginHTMLWebpack)
 plugins.push(pluginExtractCSS)
+plugins.push(pluginBrowserSync)
 
 if (!isDev) {
   plugins.push(pluginProduction)
   plugins.push(pluginOccurenceOrder)
   plugins.push(pluginUglify)
-} 
+}
 
 if (isDebug) {
  plugins.push(new BundleAnalyzerPlugin())
