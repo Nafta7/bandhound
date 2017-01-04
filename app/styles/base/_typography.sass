@@ -1,0 +1,12 @@
+// Responsize typography
+// from: https://madebymike.com.au/writing/precise-control-responsive-typography/
+:root
+  font-size: #{$font-size-min}px
+
+@media screen and (min-width: #{$viewport-min-width}px) and (max-width: #{$viewport-max-width}px)
+  :root
+    font-size: calc( #{$font-size-min}px + (#{$font-size-max} - #{$font-size-min}) * ( (100vw - #{$viewport-min-width}px) / ( #{$viewport-max-width} - #{$viewport-min-width}) ))
+
+@include respond-to(max)
+  :root
+    font-size: #{$font-size-max}px
