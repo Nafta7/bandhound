@@ -1,6 +1,11 @@
 .table-playlist
   color: palette(white)
   width: 100%
+  thead
+    tr
+      th
+        background-color: palette(red, x-light)
+        color: palette(black)
 
   tr
     background: none
@@ -18,7 +23,7 @@
 
     th, td
       text-align: left
-      padding: $playlist-item-pad
+      padding: $playlist-item-pad * 1em
 
     th#track-head
       width: 65%

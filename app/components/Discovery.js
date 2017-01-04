@@ -2,36 +2,36 @@ import React from 'react'
 import Loading from './Loading'
 import ListItem from './ListItem'
 import MoreButton from './MoreButton'
+import Header from './Header'
+
 const PropTypes = React.PropTypes
 
 const Playlist = (props) =>
-  <div id="mix">
-    <h2>
+  <div className="playlist">
+    <h2 className="artist-query">
       Mixtape of {props.artist}
     </h2>
-    <div id="playlist">
-      <table className="table-playlist">
-        <thead>
-          <tr>
-            <th id="track-head">Track</th>
-            <th id="artist-head">Artist</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.artistsData.map((item, i) => {
-            const isSelected = props.selectedItem === i
-            return (
-              <ListItem
-                key={i}
-                active={isSelected}
-                artist={item.artist}
-                track={item.track}
-                handleItemClick={props.handleItemClick.bind(null, item, i)} />
-            )
-          })}
-        </tbody>
-      </table>
-    </div>
+    <table className="table-playlist">
+      <thead>
+        <tr>
+          <th id="track-head">Track</th>
+          <th id="artist-head">Artist</th>
+        </tr>
+      </thead>
+      <tbody>
+        {props.artistsData.map((item, i) => {
+          const isSelected = props.selectedItem === i
+          return (
+            <ListItem
+              key={i}
+              active={isSelected}
+              artist={item.artist}
+              track={item.track}
+              handleItemClick={props.handleItemClick.bind(null, item, i)} />
+          )
+        })}
+      </tbody>
+    </table>
   </div>
 
 Playlist.propTypes = {
@@ -48,7 +48,8 @@ const Discovery = (props) => {
     )
   } else {
     return (
-      <div>
+      <div className="discovery">
+        <Header />
         <Playlist
           artist={props.artist}
           selectedItem={props.selectedItem}

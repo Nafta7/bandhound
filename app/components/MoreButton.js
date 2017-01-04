@@ -10,7 +10,7 @@ const MoreButton = (props) => {
         const classy = props.reachEnd ? ' hidden' : ''
         return (
           <button
-            className={`btn-load-more ${classy}`}
+            className={`btn btn-fit btn-load-more ${classy}`}
             onClick={props.handleLoadMoreClick}>
             Load more
           </button>

@@ -1,23 +1,22 @@
 .header
-  padding: 30px 0
-  position: fixed
-  top: 0
-  width: 100%
-  z-index: 100
-  background: palette(red)
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-bottom: 2rem
 
-#logo
-  font-size: 2.2em
-  display: inline
+.logo-small
+  text-decoration: none
+  padding: 1em
+  margin-left: -1em
+  font-size: 2em
 
-  a:hover
-    background: transparent
+  &:hover
+    color: palette(red, x-light)
 
-#search
+.search
   display: inline-block
   position: relative
   height: 60px
-  float: right
   padding: 0
   position: relative
 
@@ -26,14 +25,14 @@
     color: palette(white)
     right: 10px
     top: 19px
+    font-size: 2em
 
   input[type="text"]
-    height: 45px
+    font-size: 1.2em
     display: inline-block
     border: none
+    padding: 1em 2em
     outline: none
-    padding: 3px
-    padding-right: 60px
     width: 0px
     position: absolute
     top: 0
@@ -43,23 +42,21 @@
     transition: width .4s cubic-bezier(0.000, 0.795, 0.000, 1.000)
     cursor: pointer
 
-  input[type="text"]:hover + span
+  input[type="text"]:hover + label > span
     color: palette(red, x-light)
 
-  input[type="text"]:focus:hover
+  input[type="text"]:focus
     border-bottom: 1px solid #BBB
 
   input[type="text"]:focus
-    background: white
-    color: palette(red, dark)
-    width: 250px
-    z-index: 1
-    border-bottom: 1px solid #BBB
-    cursor: text
+    width: 25em
+    background: none
+    color: palette(white)
+    padding-left: 0
+    padding-right: 0
 
   input[type="text"]:focus + .search-icon
-    color: palette(red, dark)
-    z-index: 3
+    color: palette(white)
 
   input[type="submit"]
     height: 67px
@@ -80,17 +77,3 @@
 
   input[type="submit"]:hover
     opacity: 0.8
-
-
-/* wide */
-@include respond-to(medium)
-  #search
-    width: 20em
-
-    input[type="text"]:focus
-      width: 450px
-      background: none
-      color: palette(white)
-
-    input[type="text"]:focus + .search-icon
-      color: palette(white)

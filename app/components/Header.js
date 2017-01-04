@@ -4,12 +4,10 @@ import GetArtistContainer from '../containers/GetArtistContainer'
 
 const Header = (props) =>
   <div className="header">
-    <div className="container">
-      <div id="logo">
-        <Link to="/">bandhound</Link>
-      </div>
-      <GetArtistContainer type="header" />
-    </div>
+    <h1>
+      <Link to="/" className="logo-small">b</Link>
+    </h1>
+    <GetArtistContainer type="header" />
   </div>
 
 export default Header
