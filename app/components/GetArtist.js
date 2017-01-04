@@ -31,11 +31,15 @@ const GetArtistMain = props =>
 
 const GetArtistHeader = props =>
   <form className="search" onSubmit={props.onSubmitArtist}>
-    <Input
-      onUpdateArtist={props.onUpdateArtist}
-      artist={props.artist} />
+    <input className={`artist-name input-control get-artist-header-input`}
+      onChange={props.onUpdateArtist}
+      placeholder='Type an artist you like'
+      type="text"
+      value={props.artist}>
+    </input>
     <label>
-      <Button />
+      <button type="button">
+      </button>
       <span className="search-icon">
         <i className="fa fa-search"></i>
       </span>

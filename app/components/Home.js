@@ -4,12 +4,14 @@ const PropTypes = React.PropTypes
 
 const Home = (props) =>
 
-  <div className="home">
-    <h1 className="logo">bandhound</h1>
-    <h1 className="subtitle">
-      Meet your next favorite song.
-    </h1>
-    <GetArtistContainer type="main" />
+  <div className="align-middle">
+    <div className="home">
+      <h1 className="logo">bandhound</h1>
+      <h1 className="subtitle">
+        Meet your next favorite song.
+      </h1>
+      <GetArtistContainer type="main" />
+    </div>
   </div>
 
 export default Home
