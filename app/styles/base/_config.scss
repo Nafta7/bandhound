@@ -1,55 +1,66 @@
-// Device dimensions
+// Viewport range
 
+$viewport-min-width: 400;
+$viewport-max-width: 1600;
+
+// Device dimensions
 $breakpoints: (
   small: (min-width: 767px),
   medium: (min-width: 992px),
-  large: (min-width: 1200px)
+  large: (min-width: 1200px),
+  max: (min-width: #{$viewport-max-width}px)
 );
 
-
-// Color and palettes
-
+// Base colors
 $color-base-grey: rgb(229,231,234);
+$color-base-black: hsl(342, 80%, 10%);
+$color-base-white: hsl(342, 70%, 100%);
+$color-base-red: hsl(342, 100%, 25%);
 
+// Color palettes
 $palettes: (
   red: (
-    base: rgb(130, 0, 40),
-    light: lighten(rgb(130, 0, 40), 15%),
-    mid-light: lighten(rgb(130, 0, 40), 5%),
-    dark: darken(rgb(130, 0, 40), 15%),
-    x-light: lighten(rgb(130, 0, 40), 55%)
+    base: $color-base-red,
+    light: lighten($color-base-red, 15%),
+    mid-light: lighten($color-base-red, 5%),
+    dark: darken($color-base-red, 15%),
+    x-light: lighten($color-base-red, 25%)
   ),
 
   white: (
-    base: #fff
+    base: $color-base-white
   ),
 
   black: (
-    base: #000,
-    dark: #EEE
+    base: $color-base-black,
+    light: lighten($color-base-black, 15%)
   ),
 
   grey: (
     base: $color-base-grey,
-    light: lighten($color-base-grey, 10%),
+    light: lighten($color-base-grey, 2%),
     dark: darken($color-base-grey, 15%)
   )
 );
 
-
-// Font sizes
-
-$font-size: 16px;
-$h1-size: $font-size * 2;
-$h2-size: $font-size * 1.2;
-
 // UI element dimensions
 
-$player-size: 400px;
-$player-controls-height: 60px;
+// Font size range
+$font-size-min: 16;
+$font-size-max: 24;
 
-$playlist-item-pad: 10px;
+// input text.
+$input-font-size: 1.4;
+$input-pad: 1;
+
+// player
+$player-size: 400px;
+
+// player-control
+$player-controls-height: 80px;
+
+// playlist
+$playlist-item-pad: 1;
 
 // defaults
-
 $def-pad: 20px;
