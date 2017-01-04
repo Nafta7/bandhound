@@ -1,21 +1,24 @@
 #player-fixed
-  width: $player-size
+  width: $player-min-size
   position: fixed
   right: 0
   bottom: $player-controls-height
 
-  #player-container
-    position: relative
-    padding-bottom: 56.25%
-    padding-top: 30px
-    height: 0
-    overflow: hidden
+  @include respond-to(small)
+    width: $player-small-size
 
-  #player-container iframe,
-  #player-container object,
-  #player-container embed
-    position: absolute
-    top: 0
-    left: 0
-    width: 100%
-    height: 100%
+#player-container
+  position: relative
+  padding-bottom: 56.25%
+  padding-top: 30px
+  height: 0
+  overflow: hidden
+
+#player-container iframe,
+#player-container object,
+#player-container embed
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%

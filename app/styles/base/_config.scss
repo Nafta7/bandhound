@@ -1,6 +1,6 @@
 // Viewport range
 
-$viewport-min-width: 360;
+$viewport-min-width: 320;
 $viewport-max-width: 1200;
 
 // Device dimensions
@@ -25,7 +25,8 @@ $palettes: (
     light: lighten($color-base-red, 15%),
     mid-light: lighten($color-base-red, 5%),
     dark: darken($color-base-red, 15%),
-    x-light: lighten($color-base-red, 25%)
+    x-light: lighten($color-base-red, 25%),
+    light-45: lighten($color-base-red, 45%)
   ),
 
   white: (
@@ -55,7 +56,8 @@ $input-font-size: 1.4;
 $input-pad: 0.5;
 
 // player
-$player-size: 400px;
+$player-min-size: 320px;
+$player-small-size: 500px;
 
 // player-control
 $player-controls-height: 80px;
