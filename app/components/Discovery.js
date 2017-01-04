@@ -49,7 +49,6 @@ const Discovery = (props) => {
   } else {
     return (
       <div className="discovery">
-        <Header />
         <Playlist
           artist={props.artist}
           selectedItem={props.selectedItem}

@@ -2,13 +2,9 @@ import React from 'react'
 import Header from './Header'
 
 const Main = props =>
-  <div>
+  <div className="main">
     <Header />
-    <div className="container">
-      <div id="content-main">
-        {props.children}
-      </div>
-    </div>
+    {props.children}
   </div>
 
 export default Main
