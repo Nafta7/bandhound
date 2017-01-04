@@ -1,12 +1,16 @@
 .input-control
+  border-color: palette(white)
+  transition: border-color 0.2s ease-out
   background: palette(red)
   border: none
   border-bottom: 2px solid palette(white)
   width: 100%
-  min-height: 46px
   font-size: $input-font-size * 1em
   padding: $input-pad * 1em 0
 
+  &:focus
+    outline: none
+    border-color: palette(red, x-light)
 
 .btn
   font-size: $input-font-size * 1em
