@@ -3,7 +3,7 @@ const PropTypes = React.PropTypes
 
 const Input = props => {
   return (
-    <input className={props.inputClass}
+    <input className={`artist-name input-control`}
       onChange={props.onUpdateArtist}
       placeholder='Type an artist you like'
       type="text"
@@ -20,20 +20,17 @@ const Button = props => {
 }
 
 const GetArtistMain = props =>
-  <form onSubmit={props.onSubmitArtist}>
-    <Input inputClass='main-search-input'
+  <form className="get-artist-main" onSubmit={props.onSubmitArtist}>
+    <Input
       onUpdateArtist={props.onUpdateArtist}
       artist={props.artist} />
-    <label>
-      <Button buttonClass='main-search-submit' />
-      <span className="main-search-icon">
-        <i className="fa fa-search"></i>
-      </span>
-    </label>
+      <button type="submit" className="btn btn-main btn-fit">
+        <i className="fa fa-search icon-large"></i> Search
+      </button>
   </form>
 
 const GetArtistHeader = props =>
-  <form id="search" onSubmit={props.onSubmitArtist}>
+  <form className="search" onSubmit={props.onSubmitArtist}>
     <Input
       onUpdateArtist={props.onUpdateArtist}
       artist={props.artist} />
