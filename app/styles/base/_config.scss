@@ -1,10 +1,11 @@
 // Viewport range
 
-$viewport-min-width: 400;
-$viewport-max-width: 1600;
+$viewport-min-width: 360;
+$viewport-max-width: 1200;
 
 // Device dimensions
 $breakpoints: (
+  xs-only: (max-width: 500px),
   small: (min-width: 767px),
   medium: (min-width: 992px),
   large: (min-width: 1200px),
@@ -46,12 +47,12 @@ $palettes: (
 // UI element dimensions
 
 // Font size range
-$font-size-min: 16;
+$font-size-min: 14;
 $font-size-max: 24;
 
 // input text.
 $input-font-size: 1.4;
-$input-pad: 1;
+$input-pad: 0.5;
 
 // player
 $player-size: 400px;
