@@ -7,10 +7,8 @@ import DiscoveryContainer from '../containers/DiscoveryContainer'
 
 const routes = (
   <Router history={hashHistory}>
-    <Route path='/' component={Main}>
-      <IndexRoute component={Home} />
-      <Route path="discovery/:artist" component={DiscoveryContainer} />
-    </Route>
+    <Route path='/' component={Home} />
+    <Route path="discovery/:artist" component={DiscoveryContainer} />
   </Router>
 )
 
