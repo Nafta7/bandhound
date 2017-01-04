@@ -2,11 +2,14 @@ import React from 'react'
 const PropTypes = React.PropTypes
 
 const Loading = (props) => {
-  let classy = props.size ? `${props.size}-loader` : 'loader'
-  classy += props.main ? ' main-loader' : ''
+  let loader = props.size ? `${props.size}-loader` : 'loader'
+  loader += props.main ? ' main-loader' : ''
+  let container = props.main ? 'align-middle-abs' : ''
 
   return (
-    <div className={classy}>
+    <div className={container}>
+      <div className={loader}>
+      </div>
     </div>
   )
 }
