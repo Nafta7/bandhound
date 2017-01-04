@@ -9,8 +9,7 @@
   left: 0
   width: 100%
   background: palette(red, dark)
-  padding: 0 30px
-  padding-top: 5px
+  padding: 0 2em
 
 .control
   font-size: 2em
@@ -20,16 +19,29 @@
     cursor: pointer
     color: palette(red, x-light)
 
-.controls .control
-  margin-right: 1em
-  padding: 20px
-  margin-left: -10px
+.controls
+  margin-left: -20px
+
+  @include respond-to(xs-only)
+    display: flex
+    justify-content: space-between
+    width: 60%
+
+  .control
+    padding: 20px
+
+
+    @include respond-to(small)
+      margin-right: 1em
 
 .now-playing
-  display: inline-block
+  display: none
   color: #ccc
   font-size: 1em
   padding-right: 10px
+
+  @include respond-to(small)
+    display: inline-block
 
   .playing-artist
     color: palette(white)
