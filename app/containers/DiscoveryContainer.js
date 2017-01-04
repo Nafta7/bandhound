@@ -1,16 +1,20 @@
 import React from 'react'
-import Discovery from '../components/Discovery'
 import YoutubePlayer from 'youtube-player'
+
+import Discovery from '../components/Discovery'
+import Main from '../components/Main'
 import Player from '../components/Player'
 import PlayerControls from '../components/PlayerControls'
 import TrackStatus from '../components/TrackStatus'
-import Constants from '../constants/Constants'
+
 import AppMode from '../constants/AppMode'
+import Constants from '../constants/Constants'
+import PlayerState from '../constants/PlayerState'
+
 let getMixtape
 const config = require('../../appconfig')
 
-if (config.mode === AppMode.DEVELOPMENT)
-{
+if (config.mode === AppMode.DEVELOPMENT) {
   getMixtape = require('../../test/api-fixture').getMixtape
 } else {
   getMixtape = require('../helpers/api').getMixtape
@@ -36,9 +40,19 @@ const DiscoveryContainer = React.createClass({
     this.setState({
       player: YoutubePlayer('player')
     }, () => {
-      this.state.player.on('stateChange', (e) => {
-        if (e.target.getPlayerState() === 0) {
+      this.state.player.on('stateChange', e => {
+        if (e.target.getPlayerState() === PlayerState.ENDED) {
           this.handleNextClick()
+
+
+        } else if (e.target.getPlayerState() == PlayerState.PLAYING) {
+          this.setState({
+            isPlaying: true
+          })
+        } else if (e.target.getPlayerState() === PlayerState.PAUSED) {
+          this.setState({
+            isPlaying: false
+          })
         }
       })
     })
@@ -51,8 +65,14 @@ const DiscoveryContainer = React.createClass({
   },
 
   makeRequest: function(artist){
+    if (this.state.isPlaying) {
+      this.state.player.stopVideo()
+    }
+
     this.setState({
       isLoading: true,
+      isPlaying: false,
+      isPlayerVisible: false,
       selectedItem: null,
       currentTrack: null,
       reachEnd: null
@@ -69,41 +89,67 @@ const DiscoveryContainer = React.createClass({
   },
 
   handleItemClick: function(item, index){
-    this.state.player.loadVideoById(item.videoId)
-
     this.setState({
       isPlaying: true,
       selectedItem: index,
       currentTrack: this.state.artistsData[index]
-    })
+    }, () => this.loadVideoById(item.videoId))
   },
 
   handleLoadMoreClick: function(){
-    if (!this.state.reachEnd) {
+    if (this.state.reachEnd) return
 
-      getMixtape(this.props.routeParams.artist, this.state.page + 1, Constants.LIMIT)
-        .then(data => {
-          if (data.length > 0) {
-            this.setState({
-              isLoadingMore: false,
-              artistsData: this.state.artistsData.concat(data)
-            })
-          } else {
-            this.setState({
-              reachEnd: true,
-              isLoadingMore: false
-            })
-          }
-        })
+    const artistQuery = this.props.routeParams.artist
+    const page = this.state.page + 1
 
+    getMixtape(artistQuery, page, Constants.LIMIT)
+      .then(data => {
+        if (data.length > 0) {
+          this.setState({
+            isLoadingMore: false,
+            artistsData: this.state.artistsData.concat(data)
+          })
+        } else {
+          this.setState({
+            reachEnd: true,
+            isLoadingMore: false
+          })
+        }
+      })
+
+    this.setState({
+      isLoadingMore: true,
+      page: page + 1
+    })
+  },
+
+  handlePreviousClick: function(){
+    let previousItem = this.state.selectedItem - 1
+
+    if (this.canChangeTrack('previous')) {
+      this.loadVideoById(this.state.artistsData[previousItem])
       this.setState({
-        isLoadingMore: true,
-        page: this.state.page + 1
+        selectedItem: previousItem,
+        currentTrack: this.state.artistsData[previousItem]
+      })
+    }
+  },
+
+  handleNextClick: function(){
+    let nextItem = this.state.selectedItem + 1
+
+    if (this.canChangeTrack('next')) {
+      this.loadVideoById(this.state.artistsData[nextItem])
+      this.setState({
+        selectedItem: nextItem,
+        currentTrack: this.state.artistsData[nextItem]
       })
     }
   },
 
   handlePlayClick: function(){
+    if (!this.state.currentTrack) return
+
     if (this.state.isPlaying) {
       this.state.player.pauseVideo()
     } else {
@@ -119,6 +165,11 @@ const DiscoveryContainer = React.createClass({
     this.setState({
       isPlayerVisible: !this.state.isPlayerVisible
     })
+  },
+
+
+  loadVideoById: function(videoId){
+    this.state.player.loadVideoById(videoId)
   },
 
   hasTrackSelected: function(){
@@ -145,29 +196,10 @@ const DiscoveryContainer = React.createClass({
     return false
   },
 
-  handleNextClick: function(){
-    if (this.canChangeTrack('next')) {
-      this.state.player.loadVideoById(this.state.artistsData[this.state.selectedItem+1])
-      this.setState({
-        selectedItem: this.state.selectedItem + 1,
-        currentTrack: this.state.artistsData[this.state.selectedItem + 1]
-      })
-    }
-  },
-
-  handlePreviousClick: function(){
-    if (this.canChangeTrack('previous')) {
-      this.state.player.loadVideoById(this.state.artistsData[this.state.selectedItem-1])
-      this.setState({
-        selectedItem: this.state.selectedItem - 1,
-        currentTrack: this.state.artistsData[this.state.selectedItem - 1]
-      })
-    }
-  },
 
   render: function(){
     return (
-      <div>
+      <Main>
         <Discovery
           selectedItem={this.state.selectedItem}
           isLoading={this.state.isLoading}
@@ -188,7 +220,7 @@ const DiscoveryContainer = React.createClass({
           handlePreviousClick={this.handlePreviousClick} >
           <TrackStatus currentTrack={this.state.currentTrack} />
         </PlayerControls>
-      </div>
+      </Main>
     )
   }
 })
