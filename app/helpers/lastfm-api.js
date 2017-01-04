@@ -1,7 +1,7 @@
 import axios from 'axios'
 import credentials from '!json!../../credentials.json'
 
-const baseUrl = `http://ws.audioscrobbler.com/2.0/?`
+const baseUrl = `https://ws.audioscrobbler.com/2.0/?`
 const getSimilarUrl = `${baseUrl}method=artist.getsimilar
   &api_key=${credentials.lastfm.apiKey}&format=json`
 const getTopTracksUrl = `${baseUrl}method=artist.gettoptracks
