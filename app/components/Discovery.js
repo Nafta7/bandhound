@@ -3,6 +3,7 @@ import Loading from './Loading'
 import ListItem from './ListItem'
 import MoreButton from './MoreButton'
 import Header from './Header'
+import Failure from './Failure'
 
 const PropTypes = React.PropTypes
 
@@ -41,8 +42,16 @@ Playlist.propTypes = {
   handleItemClick: PropTypes.func.isRequired
 }
 
-const Discovery = (props) => {
-  if (props.isLoading) {
+const Discovery = ({ isFailure, isLoading, isLoadingMore, reachEnd, errorMessage,
+  handleItemClick, handleLoadMoreClick, artist, artistsData, selectedItem
+}) => {
+  if (isFailure) {
+    return (
+      <Failure message={errorMessage} />
+    )
+  }
+
+  if (isLoading) {
     return (
       <Loading main={true} />
     )
@@ -50,13 +59,13 @@ const Discovery = (props) => {
     return (
       <div className="discovery">
         <Playlist
-          artist={props.artist}
-          selectedItem={props.selectedItem}
-          artistsData={props.artistsData}
-          handleItemClick={props.handleItemClick} />
-        <MoreButton reachEnd={props.reachEnd}
-          isLoading={props.isLoadingMore}
-          handleLoadMoreClick={props.handleLoadMoreClick} />
+          artist={artist}
+          selectedItem={selectedItem}
+          artistsData={artistsData}
+          handleItemClick={handleItemClick} />
+        <MoreButton reachEnd={reachEnd}
+          isLoading={isLoadingMore}
+          handleLoadMoreClick={handleLoadMoreClick} />
       </div>
     )
   }
@@ -68,7 +77,8 @@ Discovery.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   artistsData: PropTypes.array.isRequired,
   handleItemClick: PropTypes.func.isRequired,
-  handleLoadMoreClick: PropTypes.func.isRequired
+  handleLoadMoreClick: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string
 }
 
 export default Discovery

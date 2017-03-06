@@ -24,6 +24,7 @@ const DiscoveryContainer = React.createClass({
   getInitialState: function(){
     return {
       isLoading: true,
+      isFailure: false,
       isLoadingMore: false,
       isPlayerVisible: false,
       isPlaying: false,
@@ -32,7 +33,8 @@ const DiscoveryContainer = React.createClass({
       selectedItem: null,
       artistsData: [],
       player: null,
-      currentTrack: null
+      currentTrack: null,
+      errorMessage: ''
     }
   },
 
@@ -64,28 +66,43 @@ const DiscoveryContainer = React.createClass({
     this.makeRequest(nextProps.routeParams.artist)
   },
 
+  resetState: function(state, props) {
+    return {
+      isLoading: true,
+      isFailure: false,
+      isPlaying: false,
+      isPlayerVisible: false,
+      selectedItem: null,
+      currentTrack: null,
+      reachEnd: null,
+      errorMessage: ''
+    }
+  },
+
   makeRequest: function(artist){
     if (this.state.isPlaying) {
       this.state.player.stopVideo()
     }
 
-    this.setState({
-      isLoading: true,
-      isPlaying: false,
-      isPlayerVisible: false,
-      selectedItem: null,
-      currentTrack: null,
-      reachEnd: null
+    this.setState(this.resetState, () => {
+      getMixtape(artist, 1, Constants.LIMIT)
+        .then(data => {
+          this.setState({
+            isLoading: false,
+            artistsData: data,
+            page: 1
+          })
+        })
+        .catch(err => {
+          this.setState({
+            isFailure: true,
+            isLoading: false,
+            errorMessage: err.message
+          })
+        })
     })
 
-    getMixtape(artist, 1, Constants.LIMIT)
-      .then(data => {
-        this.setState({
-          isLoading: false,
-          artistsData: data,
-          page: 1
-        })
-      })
+
   },
 
   handleItemClick: function(item, index){
@@ -203,6 +220,8 @@ const DiscoveryContainer = React.createClass({
         <Discovery
           selectedItem={this.state.selectedItem}
           isLoading={this.state.isLoading}
+          isFailure={this.state.isFailure}
+          errorMessage={this.state.errorMessage}
           isLoadingMore={this.state.isLoadingMore}
           reachEnd={this.state.reachEnd}
           artist={this.props.routeParams.artist}

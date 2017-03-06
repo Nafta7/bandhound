@@ -13,7 +13,12 @@ function getSimilarArtists(artist, page = 1, limit = 2) {
   let similar
   return axios.get(`${getSimilarUrl}&limit=${totalSize}&artist=${artist}`)
     .then(data => {
-      similar = data.data.similarartists.artist.slice(tailSize).map(artistData =>  {
+      similar = data.data.similarartists
+      if (!similar)
+        return Promise.reject(new Error(`We couldn't find any similar artists`))
+        
+      similar = similar.artist
+      similar = similar.slice(tailSize).map(artistData =>  {
         if (artistData.mbid) {
           return artistData.mbid
         }
