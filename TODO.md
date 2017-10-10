@@ -1,6 +1,7 @@
 # TODO
 
-- [x] Improve mobile UI.
+- [ ] Update dependencies
+
 - [ ] Add a transition animation on the toggle player button.
 
 - [ ] [Bug] Search for Circa survive and try to load more. Uncaught (in promise) TypeError: Cannot read property 'artist' of undefined
