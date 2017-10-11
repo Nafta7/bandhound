@@ -90,7 +90,7 @@ module.exports = (env = {}) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: [['es2015', { modules: false, loose: true }], 'react']
+              presets: [['es2015'], 'react']
             }
           }
         },
