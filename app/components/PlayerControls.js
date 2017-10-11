@@ -10,11 +10,15 @@ import {
 } from 'react-feather'
 
 const PlayerControls = props => {
-  const playComponent = props.isPlaying ? <Pause /> : <Play />
-  const chevronComponent = props.isPlayerVisible ? (
-    <ChevronDown />
+  const playComponent = props.isPlaying ? (
+    <Pause className="player-icon" />
   ) : (
-    <ChevronUp />
+    <Play className="player-icon" />
+  )
+  const chevronComponent = props.isPlayerVisible ? (
+    <ChevronDown className="player-icon" />
+  ) : (
+    <ChevronUp className="player-icon" />
   )
 
   return (
@@ -22,7 +26,7 @@ const PlayerControls = props => {
       <ul className="controls">
         <li>
           <button className="control" onClick={props.handlePreviousClick}>
-            <SkipBack />
+            <SkipBack className="player-icon" />
           </button>
         </li>
         <li>
@@ -32,7 +36,7 @@ const PlayerControls = props => {
         </li>
         <li>
           <button className="control" onClick={props.handleNextClick}>
-            <SkipForward />
+            <SkipForward className="player-icon" />
           </button>
         </li>
       </ul>
