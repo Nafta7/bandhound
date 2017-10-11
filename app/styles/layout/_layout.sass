@@ -13,3 +13,20 @@
 
 .hidden
   display: none !important
+
+
+.container
+  margin: 0 auto
+  padding: 0 1em
+
+  @include respond-to(extra-small)
+    max-width: 540px
+
+  @include respond-to(small)
+    max-width: 720px
+
+  @include respond-to(medium)
+    max-width: 930px
+
+  @include respond-to(large)
+    max-width: 1125px
