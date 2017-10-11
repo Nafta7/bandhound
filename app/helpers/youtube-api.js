@@ -1,5 +1,5 @@
 import axios from 'axios'
-import credentials from '!json!../../credentials.json'
+const credentials = require('../../credentials.json')
 
 const key = `key=${credentials.youtube.apiKey}`
 const baseUrl = `https://www.googleapis.com/youtube/v3/search?`
@@ -14,10 +14,10 @@ function fetchTrack(options) {
   const searchParams = `q=${artist} - ${track}`
   const url = `${baseUrl}&${searchParams}&${params}&${key}`
   let obj = {}
-  if (!artist || !track)
-    return
-    
-  return axios.get(url)
+  if (!artist || !track) return
+
+  return axios
+    .get(url)
     .then(data => {
       obj = {
         artist: artist,
@@ -31,13 +31,14 @@ function fetchTrack(options) {
     })
 }
 
-function fetchTopTracks(topTracksData){
-  return axios.all(topTracksData.map(item => {
-    if (item) {
-      return fetchTrack({artist: item[0].artist.name, track: item[0].name })
-    }
-  }))
+function fetchTopTracks(topTracksData) {
+  return axios.all(
+    topTracksData.map(item => {
+      if (item) {
+        return fetchTrack({ artist: item[0].artist.name, track: item[0].name })
+      }
+    })
+  )
 }
-
 
 export default fetchTopTracks
