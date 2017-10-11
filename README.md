@@ -1,21 +1,15 @@
 # bandhound
 
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
 bandhound is a music discovery webapp that aims to help people discover
 artists similar to the ones they already love.
 
-## credentials
+## Credentials
 
-Before anything you will need to request two API keys, one from Youtube and
-another from Last.fm. The Last.fm key should be pretty straightforward to get,
-however, for the Youtube api key will you also need to register your
-application in order to use it.
+Open the `credentials.json` and add your **API** keys.
 
-You can follow [these instructions](https://developers.google.com/youtube/registering_an_application)
-in case you have problems setting up your application.
-
-Next, open the `credentials.json` and add the api keys.
-
-## install
+## Install
 
 This section assumes that Node.js and git are already installed.
 
