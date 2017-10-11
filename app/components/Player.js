@@ -1,13 +1,13 @@
 import React from 'react'
-const PropTypes = React.PropTypes
+import PropTypes from 'prop-types'
 
-const Player = props =>
-  <div id="player-fixed" className={props.isPlayerVisible? '' : "hidden" }>
+const Player = props => (
+  <div id="player-fixed" className={props.isPlayerVisible ? '' : 'hidden'}>
     <div id="player-container">
-      <div id="player">
-      </div>
+      <div id="player" />
     </div>
   </div>
+)
 
 Player.propTypes = {
   isPlayerVisible: PropTypes.bool.isRequired

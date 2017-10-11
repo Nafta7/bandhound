@@ -1,16 +1,11 @@
 import React from 'react'
-
-const PropTypes = React.PropTypes
+import PropTypes from 'prop-types'
 
 function Failure({ message }) {
   return (
     <div className={`message`}>
-      <p>
-        Well this is embarrassing...
-      </p>
-      <p className='message-text'>
-        {message}.
-      </p>
+      <p>Well this is embarrassing...</p>
+      <p className="message-text">{message}.</p>
     </div>
   )
 }

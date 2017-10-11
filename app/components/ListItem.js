@@ -1,18 +1,20 @@
 import React from 'react'
-const PropTypes = React.PropTypes
+import PropTypes from 'prop-types'
 
-const ListItem = (props) => {
-  const track = props.track.length > 50
-    ? props.track.substring(0, 50) + '...'
-    : props.track
+const ListItem = props => {
+  const track =
+    props.track.length > 50 ? props.track.substring(0, 50) + '...' : props.track
 
-  const artist = props.artist.length > 30
-    ? props.artist.substring(0, 30) + '...'
-    : props.artist
+  const artist =
+    props.artist.length > 30
+      ? props.artist.substring(0, 30) + '...'
+      : props.artist
 
   return (
-    <tr className={props.active ? 'current' : ''}
-      onClick={props.handleItemClick}>
+    <tr
+      className={props.active ? 'current' : ''}
+      onClick={props.handleItemClick}
+    >
       <td>{track}</td>
       <td>{artist}</td>
     </tr>

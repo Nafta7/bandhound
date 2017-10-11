@@ -1,8 +1,7 @@
 import React from 'react'
 
-const Wrapper = () =>
+const Wrapper = () => (
   <div className="container">
-    <div className="content-main">
-
-    </div>
+    <div className="content-main" />
   </div>
+)

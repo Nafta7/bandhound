@@ -1,47 +1,48 @@
 import React from 'react'
 import GetArtist from '../components/GetArtist'
-const PropTypes = React.PropTypes
+import PropTypes from 'prop-types'
+import PlayerControls from '../components/PlayerControls'
 
-const GetArtistContainer = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
-
-  getDefaultProps: function(){
-    return {
-      type: 'header'
-    }
-  },
-
-  propTypes: {
-    type: PropTypes.string
-  },
-
-  getInitialState: function(){
-    return {
+class GetArtistContainer extends React.Component {
+  constructor() {
+    super()
+    this.state = {
       artist: ''
     }
-  },
 
-  handleSubmitArtist: function(e){
+    this.handleSubmitArtist = this.handleSubmitArtist.bind(this)
+    this.handleUpdateArtist = this.handleUpdateArtist.bind(this)
+  }
+
+  handleSubmitArtist(e) {
     e.preventDefault()
-    this.context.router.push(`/discovery/${this.state.artist}`)
-  },
+    this.context.router.history.push(`/discovery/${this.state.artist}`)
+  }
 
-  handleUpdateArtist: function(e){
+  handleUpdateArtist(e) {
     this.setState({
       artist: e.target.value
     })
-  },
+  }
 
-  render: function(){
+  render() {
     return (
-      <GetArtist type={this.props.type}
+      <GetArtist
+        type={this.props.type}
         onSubmitArtist={this.handleSubmitArtist}
         onUpdateArtist={this.handleUpdateArtist}
-        artist={this.state.artist} />
+        artist={this.state.artist}
+      />
     )
   }
-})
+}
+
+GetArtistContainer.defaultProps = {
+  type: PropTypes.string
+}
+
+GetArtistContainer.contextTypes = {
+  router: PropTypes.object.isRequired
+}
 
 export default GetArtistContainer

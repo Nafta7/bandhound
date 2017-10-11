@@ -1,41 +1,57 @@
 import React from 'react'
-const PropTypes = React.PropTypes
+import PropTypes from 'prop-types'
+import {
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  ChevronUp,
+  ChevronDown
+} from 'react-feather'
 
 const PlayerControls = props => {
-  const iconToggle = props.isPlayerVisible ? 'down' : 'up'
-  const iconPlay = props.isPlaying ? 'pause' : 'play'
+  const playComponent = props.isPlaying ? <Pause /> : <Play />
+  const chevronComponent = props.isPlayerVisible ? (
+    <ChevronDown />
+  ) : (
+    <ChevronUp />
+  )
 
   return (
     <div className="player-controls">
       <ul className="controls">
         <li>
           <button className="control" onClick={props.handlePreviousClick}>
-            <i className="fa fa-backward" aria-hidden="true"></i>
+            <SkipBack />
           </button>
         </li>
         <li>
           <button className="control" onClick={props.handlePlayClick}>
-            <i className={`fa fa-${iconPlay}`} aria-hidden="true"></i>
-
+            {playComponent}
           </button>
         </li>
         <li>
           <button className="control" onClick={props.handleNextClick}>
-            <i className="fa fa-forward" aria-hidden="true"></i>
+            <SkipForward />
           </button>
         </li>
       </ul>
       <ul className="controls-aside">
         {props.children}
         <li>
-          <button className="control toggle-player" onClick={props.handlePlayerToggle}>
-            <i className={`fa fa-chevron-${iconToggle}`} aria-hidden="true"></i>
+          <button
+            className="control toggle-player"
+            onClick={props.handlePlayerToggle}
+          >
+            {chevronComponent}
           </button>
         </li>
       </ul>
     </div>
   )
 }
+
+export default PlayerControls
 
 PlayerControls.propTypes = {
   isPlayerVisible: PropTypes.bool.isRequired,
@@ -45,5 +61,3 @@ PlayerControls.propTypes = {
   handleNextClick: PropTypes.func.isRequired,
   handlePreviousClick: PropTypes.func.isRequired
 }
-
-export default PlayerControls

@@ -1,17 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Loading from './Loading'
 import ListItem from './ListItem'
 import MoreButton from './MoreButton'
 import Header from './Header'
 import Failure from './Failure'
 
-const PropTypes = React.PropTypes
-
-const Playlist = (props) =>
+const Playlist = props => (
   <div className="playlist">
-    <h2 className="artist-query">
-      Mixtape of {props.artist}
-    </h2>
+    <h2 className="artist-query">Mixtape of {props.artist}</h2>
     <table className="table-playlist">
       <thead>
         <tr>
@@ -28,12 +25,14 @@ const Playlist = (props) =>
               active={isSelected}
               artist={item.artist}
               track={item.track}
-              handleItemClick={props.handleItemClick.bind(null, item, i)} />
+              handleItemClick={props.handleItemClick.bind(null, item, i)}
+            />
           )
         })}
       </tbody>
     </table>
   </div>
+)
 
 Playlist.propTypes = {
   selectedItem: PropTypes.number,
@@ -42,19 +41,24 @@ Playlist.propTypes = {
   handleItemClick: PropTypes.func.isRequired
 }
 
-const Discovery = ({ isFailure, isLoading, isLoadingMore, reachEnd, errorMessage,
-  handleItemClick, handleLoadMoreClick, artist, artistsData, selectedItem
+const Discovery = ({
+  isFailure,
+  isLoading,
+  isLoadingMore,
+  reachEnd,
+  errorMessage,
+  handleItemClick,
+  handleLoadMoreClick,
+  artist,
+  artistsData,
+  selectedItem
 }) => {
   if (isFailure) {
-    return (
-      <Failure message={errorMessage} />
-    )
+    return <Failure message={errorMessage} />
   }
 
   if (isLoading) {
-    return (
-      <Loading main={true} />
-    )
+    return <Loading main={true} />
   } else {
     return (
       <div className="discovery">
@@ -62,10 +66,13 @@ const Discovery = ({ isFailure, isLoading, isLoadingMore, reachEnd, errorMessage
           artist={artist}
           selectedItem={selectedItem}
           artistsData={artistsData}
-          handleItemClick={handleItemClick} />
-        <MoreButton reachEnd={reachEnd}
+          handleItemClick={handleItemClick}
+        />
+        <MoreButton
+          reachEnd={reachEnd}
           isLoading={isLoadingMore}
-          handleLoadMoreClick={handleLoadMoreClick} />
+          handleLoadMoreClick={handleLoadMoreClick}
+        />
       </div>
     )
   }
