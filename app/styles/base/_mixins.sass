@@ -15,13 +15,5 @@
     /* IE 10+ */
     color: $color
 
-@mixin respond-to($name)
-  @if map-has-key($breakpoints, $name)
-    @media #{inspect(map-get($breakpoints, $name))}
-      @content
-  @else
-    @warn "Unfortunately, no value could be retrived from `#{breakpoint}`."
-    + "Please make sure it is defined in `$breakpoints` map."
-
 @function palette($palette, $tone: 'base')
   @return map-get(map-get($palettes, $palette), $tone)

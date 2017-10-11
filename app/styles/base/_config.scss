@@ -6,6 +6,7 @@ $viewport-max-width: 1200;
 // Device dimensions
 $breakpoints: (
   xs-only: (max-width: 500px),
+  extra-small : (min-width: 576px),
   small: (min-width: 767px),
   medium: (min-width: 992px),
   large: (min-width: 1200px),
@@ -13,36 +14,30 @@ $breakpoints: (
 );
 
 // Base colors
-$color-base-grey: rgb(229,231,234);
+$color-base-grey: rgb(229, 231, 234);
 $color-base-black: hsl(342, 80%, 10%);
 $color-base-white: hsl(342, 70%, 100%);
 $color-base-red: hsl(342, 100%, 25%);
 
 // Color palettes
 $palettes: (
-  red: (
-    base: $color-base-red,
-    light: lighten($color-base-red, 15%),
-    mid-light: lighten($color-base-red, 5%),
-    dark: darken($color-base-red, 15%),
-    x-light: lighten($color-base-red, 25%),
-    light-45: lighten($color-base-red, 45%)
-  ),
-
-  white: (
-    base: $color-base-white
-  ),
-
-  black: (
-    base: $color-base-black,
-    light: lighten($color-base-black, 15%)
-  ),
-
-  grey: (
-    base: $color-base-grey,
-    light: lighten($color-base-grey, 2%),
-    dark: darken($color-base-grey, 15%)
-  )
+  red:
+    (
+      base: $color-base-red,
+      light: lighten($color-base-red, 15%),
+      mid-light: lighten($color-base-red, 5%),
+      dark: darken($color-base-red, 15%),
+      x-light: lighten($color-base-red, 25%),
+      light-45: lighten($color-base-red, 45%)
+    ),
+  white: (base: $color-base-white),
+  black: (base: $color-base-black, light: lighten($color-base-black, 15%)),
+  grey:
+    (
+      base: $color-base-grey,
+      light: lighten($color-base-grey, 2%),
+      dark: darken($color-base-grey, 15%)
+    )
 );
 
 // UI element dimensions
