@@ -78,7 +78,6 @@ module.exports = (env = {}) => {
       bundle: './app/index.js'
     },
     output: {
-      // path: path.join(__dirname, 'www/dist'),
       path: `${__dirname}/dist`,
       // publicPath: '/dist/',
       filename: 'index_bundle.js'
@@ -95,41 +94,18 @@ module.exports = (env = {}) => {
             }
           }
         },
-
         {
-          test: /\.css$/,
-          exclude: /node_modules/,
+          test: /\.*(sass|scss)$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
               {
                 loader: 'css-loader',
-                options: {
-                  sourceMap: isProduction
-                }
-              }
+                options: { minimize: isProduction, sourceMap: !isProduction }
+              },
+              { loader: 'sass-loader', options: { sourceMap: !isProduction } }
             ]
           })
-        },
-        {
-          test: /\.*(sass|scss)$/,
-          use: [
-            {
-              loader: 'style-loader'
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: !isProduction
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: !isProduction
-              }
-            }
-          ]
         },
         {
           test: /\.json$/,
