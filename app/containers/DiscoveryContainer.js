@@ -24,19 +24,19 @@ class DiscoveryContainer extends React.Component {
   constructor() {
     super()
     this.state = {
-      isLoading: true,
-      isFailure: false,
-      isLoadingMore: false,
-      isPlayerVisible: false,
-      isPlaying: false,
-      page: null,
-      reachEnd: null,
-      selectedItem: null,
       artistsData: [],
-      artistQuery: '',
-      player: null,
+      currentArtistQuery: '',
       currentTrack: null,
-      errorMessage: ''
+      errorMessage: '',
+      isFailure: false,
+      isPlaying: false,
+      isPlayerVisible: false,
+      isLoading: true,
+      isLoadingMore: false,
+      page: null,
+      player: null,
+      reachEnd: null,
+      selectedItem: null
     }
 
     this.componentDidMount = this.componentDidMount.bind(this)
@@ -79,10 +79,8 @@ class DiscoveryContainer extends React.Component {
     this.makeRequest(artistQuery)
   }
 
-  componentWillMount() {}
-
   componentWillReceiveProps(nextProps) {
-    const artistQuery = this.props.match.params.artist
+    const artistQuery = nextProps.match.params.artist
     this.makeRequest(artistQuery)
   }
 
@@ -110,6 +108,7 @@ class DiscoveryContainer extends React.Component {
           this.setState({
             isLoading: false,
             artistsData: data,
+            currentArtistQuery: artist,
             page: 1
           })
         })
@@ -117,6 +116,7 @@ class DiscoveryContainer extends React.Component {
           this.setState({
             isFailure: true,
             isLoading: false,
+            currentArtistQuery: artist,
             errorMessage: err.message
           })
         })
@@ -137,7 +137,7 @@ class DiscoveryContainer extends React.Component {
   handleLoadMoreClick() {
     if (this.state.reachEnd) return
 
-    const artistQuery = this.props.match.params.artist
+    const artistQuery = this.state.currentArtistQuery
     const page = this.state.page + 1
 
     getMixtape(artistQuery, page, Constants.LIMIT).then(data => {
