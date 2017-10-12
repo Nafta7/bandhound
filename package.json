@@ -4,15 +4,15 @@
   "author": "Nafta",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "production": "webpack --env.production",
+    "clean": "rimraf dist/*.map",
     "development": "webpack --env.development",
+    "production": "webpack --env.production",
     "stats": "webpack -p --json | webpack-bundle-size-analyzer",
     "analyze": "webpack --env.production --env.platform=analyze",
     "start": "webpack-dev-server --inline -d --watch",
     "build": "webpack-dev-server",
     "site:push": "gh-pages -d dist",
-    "publish": "npm run production && npm run site:push"
+    "deploy": "npm run production && npm run clean && npm run site:push"
   },
   "dependencies": {
     "axios": "^0.16.2",
@@ -36,6 +36,7 @@
     "html-webpack-plugin": "^2.22.0",
     "json-loader": "^0.5.4",
     "node-sass": "^4.5.3",
+    "rimraf": "^2.6.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
