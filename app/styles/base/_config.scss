@@ -51,11 +51,17 @@ $input-font-size: 1.4;
 $input-pad: 0.5;
 
 // player
-$player-min-size: 320px;
-$player-small-size: 500px;
+$player-min-size: 320;
+$player-small-size: 500;
+$player-min-ratio: 1.523809524;
+$player-small-ratio: 1.607717042;
+$player-transition-duration: 0.4;
 
 // player-control
-$player-controls-height: 80px;
+$player-controls-height: 80;
+
+// toggle-icon
+$toggle-icon-transition-duration: $player-transition-duration;
 
 // playlist
 $playlist-item-pad: 1;

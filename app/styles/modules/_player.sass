@@ -1,11 +1,15 @@
 #player-fixed
-  width: $player-min-size
+  width: $player-min-size * 1px
   position: fixed
   right: 0
-  bottom: $player-controls-height
+  bottom: (($player-min-size / $player-min-ratio) - $player-controls-height) * -1px
+  transition-property: transform
+  transition-duration: $player-transition-duration * 1s
+  transition-timing-function: ease-in-out
 
   @include respond-to(small)
-    width: $player-small-size
+    width: $player-small-size * 1px
+    bottom: (($player-small-size / $player-small-ratio) - $player-controls-height) * -1px
 
 #player-container
   position: relative
@@ -22,3 +26,9 @@
   left: 0
   width: 100%
   height: 100%
+
+.player-visible
+  transform: translateY(($player-min-size / $player-min-ratio) * -1px)
+
+  @include respond-to(small)
+    transform: translateY(($player-small-size / $player-small-ratio) * -1px)

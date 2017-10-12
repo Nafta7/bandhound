@@ -15,11 +15,7 @@ const PlayerControls = props => {
   ) : (
     <Play className="player-icon" />
   )
-  const chevronComponent = props.isPlayerVisible ? (
-    <ChevronDown className="player-icon" />
-  ) : (
-    <ChevronUp className="player-icon" />
-  )
+  const toggleState = props.isPlayerVisible ? 'toggle-icon-reverse' : ''
 
   return (
     <div className="player-controls">
@@ -47,7 +43,7 @@ const PlayerControls = props => {
             className="control toggle-player"
             onClick={props.handlePlayerToggle}
           >
-            {chevronComponent}
+            <ChevronUp className={`player-icon toggle-icon ${toggleState}`} />
           </button>
         </li>
       </ul>

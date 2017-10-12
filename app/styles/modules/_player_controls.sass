@@ -5,20 +5,19 @@
   position: fixed
   bottom: 0
   font-weight: 100
-  height: $player-controls-height
+  height: $player-controls-height * 1px
   left: 0
   width: 100%
   background: palette(red, dark)
   padding: 0 2em
   padding-top: 0.5em
 
-.player-icon
-  width: 1.2em
-  height: 1.2em
-
 .control
   font-size: 2em
   transition: color 0.2s ease-out
+
+  &::-moz-focus-inner
+    border: 0
 
   &:hover
     cursor: pointer
@@ -35,9 +34,11 @@
   .control
     padding: 20px
 
-
     @include respond-to(small)
       margin-right: 1em
+
+.controls-aside
+  display: flex
 
 .now-playing
   display: none
@@ -51,10 +52,15 @@
   .playing-artist
     color: palette(white)
 
-.toggle-control
-  padding: 20px
-  margin-right: -10px
+/* Icons */
+.player-icon
+  width: 1.2em
+  height: 1.2em
 
-.controls-aside
-  display: flex
-  align-items: center
+.toggle-icon
+  transition-property: transform
+  transition-timing-function: ease-in-out
+  transition-duration: $toggle-icon-transition-duration * 1s
+
+.toggle-icon-reverse
+  transform: rotate(180deg)

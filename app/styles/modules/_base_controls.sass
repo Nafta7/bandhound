@@ -15,9 +15,13 @@
 .btn
   font-size: $input-font-size * 1em
   padding: $input-pad * 1em
+
   &:hover
     cursor: pointer
     background-color: palette(grey)
+
+  &::-moz-focus-inner
+    border: 0
 
 .btn-load-more
   text-align: center

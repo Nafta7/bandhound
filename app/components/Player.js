@@ -2,7 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Player = props => (
-  <div id="player-fixed" className={props.isPlayerVisible ? '' : 'hidden'}>
+  <div
+    id="player-fixed"
+    className={props.isPlayerVisible ? 'player-visible' : ''}
+  >
     <div id="player-container">
       <div id="player" />
     </div>
