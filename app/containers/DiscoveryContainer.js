@@ -137,7 +137,7 @@ class DiscoveryContainer extends React.Component {
   handleLoadMoreClick() {
     if (this.state.reachEnd) return
 
-    const artistQuery = this.props.routeParams.artist
+    const artistQuery = this.props.match.params.artist
     const page = this.state.page + 1
 
     getMixtape(artistQuery, page, Constants.LIMIT).then(data => {
