@@ -22,7 +22,7 @@
     "react-dom": "^16.0.0",
     "react-feather": "^1.0.7",
     "react-router-dom": "^4.2.2",
-    "slug": "^0.9.1",
+    "slugg": "^1.2.1",
     "youtube-player": "^5.4.0"
   },
   "devDependencies": {
