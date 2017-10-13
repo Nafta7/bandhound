@@ -5,6 +5,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
+const sourceMapType = 'source-map'
+
 module.exports = (env = {}) => {
   // Variables set by npm scripts in package.json
   const isProduction = env.production === true
@@ -73,7 +75,7 @@ module.exports = (env = {}) => {
     node: {
       fs: 'empty'
     },
-    devtool: !isProduction ? 'source-map' : false,
+    devtool: !isProduction ? sourceMapType : false,
     entry: {
       bundle: './app/index.js'
     },
