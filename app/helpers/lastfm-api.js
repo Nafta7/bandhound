@@ -1,5 +1,6 @@
 import axios from 'axios'
 const credentials = require('../../credentials.json')
+import get from 'lodash.get'
 
 const baseUrl = `https://ws.audioscrobbler.com/2.0/?`
 const getSimilarUrl = `${baseUrl}method=artist.getsimilar
@@ -10,15 +11,16 @@ const getTopTracksUrl = `${baseUrl}method=artist.gettoptracks
 function getSimilarArtists(artist, page = 1, limit = 2) {
   let tailSize = (page - 1) * limit
   let totalSize = page * limit
-  let similar
+  let similar = false
+
   return axios
     .get(`${getSimilarUrl}&limit=${totalSize}&artist=${artist}`)
     .then(data => {
-      similar = data.data.similarartists
+      similar = get(data, 'data.similarartists.artist', false)
+
       if (!similar)
         return Promise.reject(new Error(`We couldn't find any similar artists`))
 
-      similar = similar.artist
       similar = similar.slice(tailSize).map(artistData => {
         if (artistData.mbid) {
           return artistData.mbid
@@ -30,7 +32,10 @@ function getSimilarArtists(artist, page = 1, limit = 2) {
 
 function getTopTracks(mbid) {
   return axios.get(`${getTopTracksUrl}${mbid}`).then(data => {
-    if (!data.data.error) return data.data.toptracks.track
+    if (!data.data.error) {
+      let topTracks = get(data, 'data.toptracks.track')
+      return topTracks
+    }
   })
 }
 
