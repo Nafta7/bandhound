@@ -1,4 +1,6 @@
 import axios from 'axios'
+import get from 'lodash.get'
+import slug from 'slug'
 const credentials = require('../../credentials.json')
 
 const key = `key=${credentials.youtube.apiKey}`
@@ -11,34 +13,40 @@ const params = `${partsParam}&${fieldsParam}&${allowedParam}`
 function fetchTrack(options) {
   const artist = options.artist
   const track = options.track
-  const searchParams = `q=${artist} - ${track}`
+  const searchParams = `q=${slug(artist)}-${slug(track)}`
   const url = `${baseUrl}&${searchParams}&${params}&${key}`
-  let obj = {}
+  let song = null
+  let videoId
+
   if (!artist || !track) return
 
   return axios
     .get(url)
     .then(data => {
-      obj = {
+      videoId = get(data, 'data.items[0].id.videoId')
+      song = {
         artist: artist,
         track: track,
-        videoId: data.data.items[0].id.videoId
+        videoId
       }
-      return obj
+      return song
     })
     .catch(err => {
+      // TODO: Proper handle of the error
       console.log(err)
     })
 }
 
 function fetchTopTracks(topTracksData) {
-  return axios.all(
-    topTracksData.map(item => {
-      if (item) {
+  let tracks = axios
+    .all(
+      topTracksData.map(item => {
         return fetchTrack({ artist: item[0].artist.name, track: item[0].name })
-      }
-    })
-  )
+      })
+    )
+    .then(values => values.filter(x => x))
+
+  return tracks
 }
 
 export default fetchTopTracks
