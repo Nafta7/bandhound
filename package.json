@@ -9,18 +9,20 @@
     "production": "webpack --env.production",
     "stats": "webpack -p --json | webpack-bundle-size-analyzer",
     "analyze": "webpack --env.production --env.platform=analyze",
-    "start": "webpack-dev-server --inline -d --watch",
+    "start": "webpack-dev-server --inline --debug --output-pathinfo --watch",
     "build": "webpack-dev-server",
     "site:push": "gh-pages -d dist",
     "deploy": "npm run production && npm run clean && npm run site:push"
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "lodash.get": "^4.4.2",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-feather": "^1.0.7",
     "react-router-dom": "^4.2.2",
+    "slug": "^0.9.1",
     "youtube-player": "^5.4.0"
   },
   "devDependencies": {
