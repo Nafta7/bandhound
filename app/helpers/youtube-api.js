@@ -1,6 +1,6 @@
 import axios from 'axios'
 import get from 'lodash.get'
-import slug from 'slug'
+import slugg from 'slugg'
 const credentials = require('../../credentials.json')
 
 const key = `key=${credentials.youtube.apiKey}`
@@ -13,7 +13,7 @@ const params = `${partsParam}&${fieldsParam}&${allowedParam}`
 function fetchTrack(options) {
   const artist = options.artist
   const track = options.track
-  const searchParams = `q=${slug(artist)}-${slug(track)}`
+  const searchParams = `q=${slugg(artist)}-${slugg(track)}`
   const url = `${baseUrl}&${searchParams}&${params}&${key}`
   let song = null
   let videoId
