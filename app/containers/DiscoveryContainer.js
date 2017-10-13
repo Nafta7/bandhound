@@ -1,6 +1,8 @@
 import React from 'react'
 import YoutubePlayer from 'youtube-player'
 
+import ErrorBoundary from './ErrorBoundary'
+
 import Discovery from '../components/Discovery'
 import Main from '../components/Main'
 import Player from '../components/Player'
@@ -233,29 +235,31 @@ class DiscoveryContainer extends React.Component {
   render() {
     return (
       <Main>
-        <Discovery
-          selectedItem={this.state.selectedItem}
-          isLoading={this.state.isLoading}
-          isFailure={this.state.isFailure}
-          errorMessage={this.state.errorMessage}
-          isLoadingMore={this.state.isLoadingMore}
-          reachEnd={this.state.reachEnd}
-          artist={this.props.match.params.artist}
-          artistsData={this.state.artistsData}
-          handleItemClick={this.handleItemClick}
-          handleLoadMoreClick={this.handleLoadMoreClick}
-        />
-        <Player isPlayerVisible={this.state.isPlayerVisible} />
-        <PlayerControls
-          isPlayerVisible={this.state.isPlayerVisible}
-          isPlaying={this.state.isPlaying}
-          handlePlayerToggle={this.handlePlayerToggle}
-          handlePlayClick={this.handlePlayClick}
-          handleNextClick={this.handleNextClick}
-          handlePreviousClick={this.handlePreviousClick}
-        >
-          <TrackStatus currentTrack={this.state.currentTrack} />
-        </PlayerControls>
+        <ErrorBoundary>
+          <Discovery
+            selectedItem={this.state.selectedItem}
+            isLoading={this.state.isLoading}
+            isFailure={this.state.isFailure}
+            errorMessage={this.state.errorMessage}
+            isLoadingMore={this.state.isLoadingMore}
+            reachEnd={this.state.reachEnd}
+            artist={this.props.match.params.artist}
+            artistsData={this.state.artistsData}
+            handleItemClick={this.handleItemClick}
+            handleLoadMoreClick={this.handleLoadMoreClick}
+          />
+          <Player isPlayerVisible={this.state.isPlayerVisible} />
+          <PlayerControls
+            isPlayerVisible={this.state.isPlayerVisible}
+            isPlaying={this.state.isPlaying}
+            handlePlayerToggle={this.handlePlayerToggle}
+            handlePlayClick={this.handlePlayClick}
+            handleNextClick={this.handleNextClick}
+            handlePreviousClick={this.handlePreviousClick}
+          >
+            <TrackStatus currentTrack={this.state.currentTrack} />
+          </PlayerControls>
+        </ErrorBoundary>
       </Main>
     )
   }
