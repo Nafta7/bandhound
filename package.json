@@ -1,7 +1,7 @@
 {
   "name": "bandhound",
   "description": "Music discovery webapp",
-  "author": "Nafta",
+  "author": "Nefla",
   "private": true,
   "scripts": {
     "clean": "rimraf dist/*.map",

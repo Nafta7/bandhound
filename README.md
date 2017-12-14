@@ -15,7 +15,7 @@ This section assumes that Node.js and git are already installed.
 
 1) Clone the repository:
 ```
-git clone git://github.com/Nafta7/bandhound.git
+git clone git://github.com/Nefla/bandhound.git
 cd bandhound
 ```
 2) Install the dependencies:
@@ -26,3 +26,7 @@ npm install
 ```
 npm run start
 ```
+
+## License
+
+MIT.
