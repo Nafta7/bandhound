@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {
-  Play,
-  Pause,
-  SkipBack,
-  SkipForward,
-  ChevronUp,
-  ChevronDown
-} from 'react-feather'
+import Play from 'react-feather/dist/icons/play'
+import Pause from 'react-feather/dist/icons/pause'
+import SkipBack from 'react-feather/dist/icons/skip-back'
+import SkipForward from 'react-feather/dist/icons/skip-forward'
+import ChevronUp from 'react-feather/dist/icons/chevron-up'
+import ChevronDown from 'react-feather/dist/icons/chevron-down'
 
 const PlayerControls = props => {
   const playComponent = props.isPlaying ? (
