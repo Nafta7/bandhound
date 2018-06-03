@@ -7,17 +7,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const sourceMapType = 'source-map'
 
 module.exports = (env = {}, options = {}) => {
-  // Variables set by npm scripts in package.json
   const isProduction = options.mode === 'production'
   const isDev = options.mode === 'development'
   const isAnalysis = env.platform == 'analysis'
-
   let plugins = []
 
   const pluginHTMLWebpack = new HTMLWebpackPlugin({
     template: `${__dirname}/app/index.html`,
     filename: 'index.html',
-    favicon: `${__dirname}/app/favicon.ico`,
     inject: 'body'
   })
 
@@ -29,21 +26,13 @@ module.exports = (env = {}, options = {}) => {
   })
 
   let pluginBrowserSync = new BrowserSyncPlugin(
-    // BrowserSync options
     {
-      // browse to http://localhost:3000/ during development
       host: 'localhost',
       port: 3000,
       open: false,
-      // proxy the Webpack Dev Server endpoint
-      // (which should be serving on http://localhost:3100/)
-      // through BrowserSync
       proxy: 'http://localhost:8080/'
     },
-    // plugin options
     {
-      // prevent BrowserSync from reloading the page
-      // and let Webpack Dev Server take care of this
       reload: false
     }
   )
@@ -56,7 +45,6 @@ module.exports = (env = {}, options = {}) => {
       new UglifyJSPlugin({
         uglifyOptions: {
           ie8: false,
-
           output: {
             comments: false,
             beautify: false
@@ -65,13 +53,9 @@ module.exports = (env = {}, options = {}) => {
         }
       })
     )
-  } else {
-    plugins.push(pluginBrowserSync)
-  }
+  } else plugins.push(pluginBrowserSync)
 
-  if (isAnalysis) {
-    plugins.push(new BundleAnalyzerPlugin())
-  }
+  if (isAnalysis) plugins.push(new BundleAnalyzerPlugin())
 
   return {
     node: {
@@ -83,8 +67,7 @@ module.exports = (env = {}, options = {}) => {
     },
     output: {
       path: `${__dirname}/dist`,
-      // publicPath: '/dist/',
-      filename: 'index_bundle.js'
+      filename: isProduction ? '[name].[hash].js' : '[name].js'
     },
     module: {
       rules: [
@@ -94,7 +77,17 @@ module.exports = (env = {}, options = {}) => {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: [['es2015'], 'react']
+              presets: [
+                [
+                  'babel-preset-env',
+                  {
+                    targets: {
+                      browsers: ['> 2%']
+                    }
+                  }
+                ],
+                'react'
+              ]
             }
           }
         },
