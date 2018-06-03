@@ -16,6 +16,7 @@ class GetArtistContainer extends React.Component {
 
   handleSubmitArtist(e) {
     e.preventDefault()
+    if (this.state.artist.trim() === '') return
     this.context.router.history.push(`/discovery/${this.state.artist}`)
   }
 
