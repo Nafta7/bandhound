@@ -1,17 +1,16 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const sourceMapType = 'source-map'
 
-module.exports = (env = {}) => {
+module.exports = (env = {}, options = {}) => {
   // Variables set by npm scripts in package.json
-  const isProduction = env.production === true
-  const isAnalyzing = env.analyze === true
-  const platform = env.platform // 'default' by default
+  const isProduction = options.mode === 'production'
+  const isDev = options.mode === 'development'
+  const isAnalysis = env.platform == 'analysis'
 
   let plugins = []
 
@@ -22,8 +21,11 @@ module.exports = (env = {}) => {
     inject: 'body'
   })
 
-  const pluginExtractText = new ExtractTextPlugin('site.css', {
-    disable: !isProduction
+  const pluginMiniCssExtract = new MiniCssExtractPlugin({
+    // Options similar to the same options in webpackOptions.output
+    // both options are optional
+    filename: isProduction ? '[name].[hash].css' : '[name].css',
+    chunkFilename: isProduction ? '[id].[hash].css' : '[id].css'
   })
 
   let pluginBrowserSync = new BrowserSyncPlugin(
@@ -47,7 +49,7 @@ module.exports = (env = {}) => {
   )
 
   plugins.push(pluginHTMLWebpack)
-  plugins.push(pluginExtractText)
+  plugins.push(pluginMiniCssExtract)
 
   if (isProduction) {
     plugins.push(
@@ -67,7 +69,7 @@ module.exports = (env = {}) => {
     plugins.push(pluginBrowserSync)
   }
 
-  if (platform === 'analyze') {
+  if (isAnalysis) {
     plugins.push(new BundleAnalyzerPlugin())
   }
 
@@ -75,7 +77,7 @@ module.exports = (env = {}) => {
     node: {
       fs: 'empty'
     },
-    devtool: !isProduction ? sourceMapType : false,
+    devtool: isDev ? sourceMapType : false,
     entry: {
       bundle: './app/index.js'
     },
@@ -97,25 +99,31 @@ module.exports = (env = {}) => {
           }
         },
         {
-          test: /\.*(sass|scss)$/,
-          use: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: { minimize: isProduction, sourceMap: !isProduction }
-              },
-              { loader: 'sass-loader', options: { sourceMap: !isProduction } }
-            ]
-          })
+          test: /\.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: { sourceMap: isDev }
+            }
+          ]
         },
         {
-          test: /\.json$/,
-          loader: 'json-loader'
+          test: /\.*(sass|scss)$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: { minimize: isProduction, sourceMap: isDev }
+            },
+            {
+              loader: 'sass-loader',
+              options: { sourceMap: isDev }
+            }
+          ]
         }
       ]
     },
-
     plugins: plugins,
     devServer: {
       port: 8080,
